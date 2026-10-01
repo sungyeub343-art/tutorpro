@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const siteUrl = "https://tutorpro.kr";
+const phone = "010-2928-3614";
+const phoneHref = "tel:+821029283614";
 
 const regions = [
   { slug: "jochivon", name: "조치원읍", group: "북부권", nearby: "신흥리·죽림리·침산리", focus: "학교 진도와 시험 일정에 맞춘 내신 관리" },
@@ -53,6 +55,7 @@ function layout({ title, description, canonical, body, image = "https://images.u
     "@type": "EducationalOrganization",
     name: "세종 수학과외",
     url: siteUrl,
+    telephone: phone,
     areaServed: "세종특별자치시",
     description
   };
@@ -96,7 +99,7 @@ function homePage() {
     <section class="grade-section" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">02 · GRADE TRANSITION</p><h2>학년이 바뀌면<br>준비도 달라야 합니다</h2></div><p>빠른 선행보다 중요한 것은 다음 과정에 필요한 이전 개념을 정확히 연결하는 일입니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
     <section class="study-scene"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85" alt="노트에 학습 내용을 정리하는 학생" loading="lazy"><div><p class="kicker">STUDY WITH DIRECTION</p><h2>혼자 공부할 때도<br>흔들리지 않도록</h2><p>과외 시간에만 풀 수 있는 문제는 오래 남지 않습니다. 문제를 읽고, 조건을 표시하고, 풀이를 검토하는 루틴을 반복해 스스로 공부하는 기준을 만듭니다.</p><ul><li>학교별 시험 범위와 일정 반영</li><li>매 수업 오답 원인 기록</li><li>개인별 과제량과 복습 주기 조정</li></ul></div></section>
     <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">03 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 읍·면과 생활권별 동 페이지에서 가까운 지역의 수업 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
-    <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">04 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 실제 상담 연락처는 운영 정보 확정 후 이 영역에 연결됩니다.</p><a class="button button-dark" href="#areas">지역별 안내 보기 <span>→</span></a></div></div></section>
+    <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">04 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 전화로 편하게 상담을 신청해 주세요.</p><a class="button button-dark" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></div></section>
   </main>`;
   return layout({ title, description, canonical: `${siteUrl}/`, body });
 }
@@ -110,7 +113,7 @@ function regionPage(region) {
     <section class="local-intro"><div class="wrap section-heading"><div><p class="kicker">LOCAL STUDY PLAN</p><h2>가까운 곳에서<br>꾸준히 배우는 수학</h2></div><div><p>세종 ${region.name} 수학과외는 최근 시험지와 현재 사용하는 교재를 먼저 살펴봅니다. 정답 개수만 확인하지 않고 개념 이해, 풀이 순서, 계산 습관 중 어디에서 막혔는지 구분해 다음 학습량을 정합니다.</p><p>${region.focus}. 초등 개념과 연산, 중등 내신의 서술형 풀이, 고등 수학의 개념 연결과 문제 해석까지 현재 필요한 단계에 집중합니다.</p></div></div></section>
     <section class="grade-section local-grades" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">GRADE TRANSITION</p><h2>${region.name} 학년별<br>수학 학습 안내</h2></div><p>학년 전환기의 복습과 선행을 학생별 이해도에 맞춰 조정합니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
     <section class="local-details"><div class="wrap detail-grid"><article><p class="kicker">LESSON FOCUS</p><h2>${region.name} 학생에게 맞는<br>현실적인 계획</h2><p>학교별 시험 일정과 학생의 생활 패턴을 고려해 무리하지 않고 이어갈 수 있는 주간 계획을 세웁니다. 대면 수업 가능 여부와 시간은 세부 위치와 희망 일정에 따라 상담 후 안내합니다.</p></article><article><p class="kicker">NEARBY AREAS</p><h3>세종 다른 지역 수학과외</h3><div class="nearby-links">${nearby}</div></article></div></section>
-    <section class="local-cta"><div class="wrap"><div><p class="kicker">CONSULTATION</p><h2>${region.name} 수학과외 상담</h2></div><a class="button button-primary" href="/#consult">상담 안내 확인 <span>→</span></a></div></section>
+    <section class="local-cta"><div class="wrap"><div><p class="kicker">CONSULTATION</p><h2>${region.name} 수학과외 상담</h2></div><a class="button button-primary" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></section>
   </main>`;
   return layout({ title, description, canonical: `${siteUrl}/areas/${region.slug}/`, body });
 }
