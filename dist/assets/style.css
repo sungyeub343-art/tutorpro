@@ -24,7 +24,7 @@ img { display: block; width: 100%; }
 .brand { display: inline-flex; align-items: center; gap: .7rem; font-weight: 700; }
 .brand > span { width: 31px; height: 31px; display: grid; place-items: center; color: var(--ink); background: var(--amber); font-family: Georgia, serif; font-size: 1.15rem; }
 .site-header nav { display: flex; gap: 2.2rem; font-size: .9rem; }
-.nav-cta { padding: .65rem 1rem; border: 1px solid rgba(255,255,255,.65); font-size: .88rem; font-weight: 600; }
+.nav-cta { padding: .65rem 1rem; border: 1px solid rgba(255,255,255,.65); font-size: .88rem; font-weight: 600; white-space: nowrap; }
 .hero { position: relative; min-height: min(840px, 92vh); overflow: hidden; color: white; background: var(--blue); }
 .hero > img, .hero-overlay { position: absolute; inset: 0; height: 100%; object-fit: cover; }
 .hero > img { object-position: center 53%; animation: image-in 1.2s ease-out both; }

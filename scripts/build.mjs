@@ -83,7 +83,7 @@ function layout({ title, description, canonical, body, image = "https://images.u
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 바로가기</a>
-  <header class="site-header"><div class="wrap nav-inner"><a class="brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><nav aria-label="주요 메뉴"><a href="/#method">수업 방식</a><a href="/#grades">학년별 수업</a><a href="/#areas">지역 찾기</a></nav><a class="nav-cta" href="/#consult">상담 안내</a></div></header>
+  <header class="site-header"><div class="wrap nav-inner"><a class="brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><nav aria-label="주요 메뉴"><a href="/#method">수업 방식</a><a href="/#grades">학년별 수업</a><a href="/#areas">지역 찾기</a></nav><a class="nav-cta" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></header>
   ${body}
   <footer><div class="wrap footer-inner"><a class="brand footer-brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><p>학생의 이해에서 시작하는 1:1 맞춤 수업</p><p>© 2026 세종 수학과외</p></div></footer>
 </body>
