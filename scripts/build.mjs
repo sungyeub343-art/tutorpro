@@ -63,6 +63,7 @@ function layout({ title, description, canonical, body, image = "https://images.u
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${title}</title>
   <meta name="description" content="${description}">
+  <meta name="naver-site-verification" content="6ded063826d77fdf063c2c08043715e4de8bbc7f">
   <meta name="theme-color" content="#12304a">
   <link rel="canonical" href="${canonical}">
   <meta property="og:type" content="website">
