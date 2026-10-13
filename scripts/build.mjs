@@ -48,6 +48,7 @@ const grades = [
 
 const gradeCards = grades.map(([name, text]) => `<article class="grade-card"><span>PREP COURSE</span><h3>${name} 수학과외</h3><p>${text}</p></article>`).join("");
 const regionLinks = regions.map(region => `<a class="region-link" href="/areas/${region.slug}/"><small>${region.group}</small><strong>${region.name} 수학과외</strong><span aria-hidden="true">↗</span></a>`).join("");
+const regionSelectLinks = regions.map((region, index) => `<a class="region-select-link" href="/areas/${region.slug}/"><span>${String(index + 1).padStart(2, "0")}</span><strong>${region.name}</strong><i aria-hidden="true">↗</i></a>`).join("");
 
 function layout({ title, description, canonical, body, image = "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=85" }) {
   const structuredData = {
@@ -93,14 +94,29 @@ function layout({ title, description, canonical, body, image = "https://images.u
 function homePage() {
   const title = "세종 수학과외 | 예비중·예비고 1:1 맞춤 수업";
   const description = "세종특별자치시 초중고 1:1 수학과외. 예비중1, 예비중2, 예비중3, 예비고1, 예비고2, 예비고3 학생별 내신·선행·수능 맞춤 수업.";
-  const body = `<main id="main">
+  const body = `<div class="region-selector" id="region-selector"><div class="region-selector-backdrop" data-region-close></div><section class="region-selector-panel" role="dialog" aria-modal="true" aria-labelledby="region-selector-title"><button class="region-selector-close" type="button" aria-label="지역 선택창 닫기" data-region-close>×</button><p class="region-selector-kicker">REGION SELECT</p><h2 id="region-selector-title">어느 지역의<br>수학과외를 찾으시나요?</h2><p class="region-selector-copy">지역을 선택하면 해당 지역 수업 안내로 바로 이동합니다.</p><div class="region-selector-grid">${regionSelectLinks}</div></section></div>
+  <main id="main">
     <section class="hero"><img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=2000&q=88" alt="수학 도형과 공식이 적힌 학습 공간"><div class="hero-overlay"></div><div class="wrap hero-content"><p class="eyebrow">SEJONG · PRIVATE MATH COACHING</p><h1>세종<br>수학과외</h1><p class="hero-copy">답보다 먼저, 막힌 이유를 찾습니다.<br>학생의 학교 진도와 이해 속도에 맞춘 1:1 수업.</p><div class="hero-actions"><a class="button button-primary" href="#areas">우리 지역 수업 찾기 <span>→</span></a><a class="button button-phone" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></div><div class="hero-facts"><span>초등 · 중등 · 고등</span><span>내신 · 선행 · 수능</span><span>세종 전 지역 상담</span></div></section>
     <section class="method" id="method"><div class="wrap"><div class="section-heading"><div><p class="kicker">01 · HOW WE TEACH</p><h2>풀이가 아니라<br>생각의 순서를 봅니다</h2></div><p>같은 문제를 틀려도 이유는 다릅니다. 개념이 비어 있는지, 문제의 조건을 놓쳤는지, 계산 습관이 흔들리는지 먼저 구분한 뒤 수업의 출발점을 정합니다.</p></div><div class="method-grid"><article><b>01</b><h3>현재 학습 진단</h3><p>최근 시험지와 교재를 통해 정확한 취약 지점을 확인합니다.</p></article><article><b>02</b><h3>개인 진도 설계</h3><p>학교 일정, 목표 성적, 가능한 학습 시간을 함께 반영합니다.</p></article><article><b>03</b><h3>이해 중심 수업</h3><p>학생이 풀이의 이유를 자신의 말로 설명할 때까지 확인합니다.</p></article><article><b>04</b><h3>오답과 습관 관리</h3><p>반복되는 실수는 기록하고 다음 수업 계획에 바로 반영합니다.</p></article></div></div></section>
     <section class="grade-section" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">02 · GRADE TRANSITION</p><h2>학년이 바뀌면<br>준비도 달라야 합니다</h2></div><p>빠른 선행보다 중요한 것은 다음 과정에 필요한 이전 개념을 정확히 연결하는 일입니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
     <section class="study-scene"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85" alt="노트에 학습 내용을 정리하는 학생" loading="lazy"><div><p class="kicker">STUDY WITH DIRECTION</p><h2>혼자 공부할 때도<br>흔들리지 않도록</h2><p>과외 시간에만 풀 수 있는 문제는 오래 남지 않습니다. 문제를 읽고, 조건을 표시하고, 풀이를 검토하는 루틴을 반복해 스스로 공부하는 기준을 만듭니다.</p><ul><li>학교별 시험 범위와 일정 반영</li><li>매 수업 오답 원인 기록</li><li>개인별 과제량과 복습 주기 조정</li></ul></div></section>
     <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">03 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 읍·면과 생활권별 동 페이지에서 가까운 지역의 수업 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
     <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">04 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 전화로 편하게 상담을 신청해 주세요.</p><a class="button button-dark" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></div></section>
-  </main>`;
+  </main>
+  <script>
+    const selector = document.querySelector("#region-selector");
+    const closeButtons = selector.querySelectorAll("[data-region-close]");
+    const closeSelector = () => {
+      selector.hidden = true;
+      document.body.classList.remove("region-selector-open");
+    };
+    document.body.classList.add("region-selector-open");
+    closeButtons.forEach(button => button.addEventListener("click", closeSelector));
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !selector.hidden) closeSelector();
+    });
+    selector.querySelector(".region-selector-close").focus();
+  </script>`;
   return layout({ title, description, canonical: `${siteUrl}/`, body });
 }
 
