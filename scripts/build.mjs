@@ -94,7 +94,7 @@ function layout({ title, description, canonical, body, image = "https://images.u
 function homePage() {
   const title = "세종 수학과외 | 예비중·예비고 1:1 맞춤 수업";
   const description = "세종특별자치시 초중고 1:1 수학과외. 예비중1, 예비중2, 예비중3, 예비고1, 예비고2, 예비고3 학생별 내신·선행·수능 맞춤 수업.";
-  const body = `<div class="region-selector" id="region-selector"><div class="region-selector-backdrop" data-region-close></div><section class="region-selector-panel" role="dialog" aria-modal="true" aria-labelledby="region-selector-title"><button class="region-selector-close" type="button" aria-label="지역 선택창 닫기" data-region-close>×</button><p class="region-selector-kicker">REGION SELECT</p><h2 id="region-selector-title">어느 지역의<br>수학과외를 찾으시나요?</h2><p class="region-selector-copy">지역을 선택하면 해당 지역 수업 안내로 바로 이동합니다.</p><div class="region-selector-grid">${regionSelectLinks}</div></section></div>
+  const body = `<div class="region-selector" id="region-selector" hidden><div class="region-selector-backdrop" data-region-close></div><section class="region-selector-panel" role="dialog" aria-modal="true" aria-labelledby="region-selector-title"><button class="region-selector-close" type="button" aria-label="지역 선택창 닫기" data-region-close>×</button><p class="region-selector-kicker">REGION SELECT</p><h2 id="region-selector-title">어느 지역의<br>수학과외를 찾으시나요?</h2><p class="region-selector-copy">지역을 선택하면 해당 지역 수업 안내로 바로 이동합니다.</p><div class="region-selector-grid">${regionSelectLinks}</div></section></div>
   <main id="main">
     <section class="hero"><img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=2000&q=88" alt="수학 도형과 공식이 적힌 학습 공간"><div class="hero-overlay"></div><div class="wrap hero-content"><p class="eyebrow">SEJONG · PRIVATE MATH COACHING</p><h1>세종<br>수학과외</h1><p class="hero-copy">답보다 먼저, 막힌 이유를 찾습니다.<br>학생의 학교 진도와 이해 속도에 맞춘 1:1 수업.</p><div class="hero-actions"><a class="button button-primary" href="#areas">우리 지역 수업 찾기 <span>→</span></a><a class="button button-phone" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></div><div class="hero-facts"><span>초등 · 중등 · 고등</span><span>내신 · 선행 · 수능</span><span>세종 전 지역 상담</span></div></section>
     <section class="method" id="method"><div class="wrap"><div class="section-heading"><div><p class="kicker">01 · HOW WE TEACH</p><h2>풀이가 아니라<br>생각의 순서를 봅니다</h2></div><p>같은 문제를 틀려도 이유는 다릅니다. 개념이 비어 있는지, 문제의 조건을 놓쳤는지, 계산 습관이 흔들리는지 먼저 구분한 뒤 수업의 출발점을 정합니다.</p></div><div class="method-grid"><article><b>01</b><h3>현재 학습 진단</h3><p>최근 시험지와 교재를 통해 정확한 취약 지점을 확인합니다.</p></article><article><b>02</b><h3>개인 진도 설계</h3><p>학교 일정, 목표 성적, 가능한 학습 시간을 함께 반영합니다.</p></article><article><b>03</b><h3>이해 중심 수업</h3><p>학생이 풀이의 이유를 자신의 말로 설명할 때까지 확인합니다.</p></article><article><b>04</b><h3>오답과 습관 관리</h3><p>반복되는 실수는 기록하고 다음 수업 계획에 바로 반영합니다.</p></article></div></div></section>
@@ -110,12 +110,20 @@ function homePage() {
       selector.hidden = true;
       document.body.classList.remove("region-selector-open");
     };
-    document.body.classList.add("region-selector-open");
-    closeButtons.forEach(button => button.addEventListener("click", closeSelector));
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && !selector.hidden) closeSelector();
-    });
-    selector.querySelector(".region-selector-close").focus();
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("regionSelectorSeen") === "1";
+      sessionStorage.setItem("regionSelectorSeen", "1");
+    } catch {}
+    if (!seen) {
+      selector.hidden = false;
+      document.body.classList.add("region-selector-open");
+      closeButtons.forEach(button => button.addEventListener("click", closeSelector));
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !selector.hidden) closeSelector();
+      });
+      selector.querySelector(".region-selector-close").focus();
+    }
   </script>`;
   return layout({ title, description, canonical: `${siteUrl}/`, body });
 }
