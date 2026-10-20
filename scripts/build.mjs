@@ -46,18 +46,147 @@ const grades = [
   ["예비고3", "수능 출제 단원별 개념과 기출을 연결하고 제한 시간 안에 점수를 만드는 실전 루틴을 다집니다."]
 ];
 
+const levels = [
+  {
+    slug: "elementary",
+    label: "초등",
+    learner: "초등학생",
+    en: "ELEMENTARY MATH",
+    range: "초1~초6",
+    titleTail: "기초수학·수학공부 1:1 맞춤 수업",
+    descKeywords: "초등 수학수업·수학공부·기초수학",
+    summary: "연산 정확도, 분수 개념, 문장제 해석을 다지는 초등 수학",
+    grades: [
+      ["초1", "수 세기와 가르기·모으기, 한 자리 덧셈·뺄셈으로 수 감각과 연산의 기초를 만듭니다."],
+      ["초2", "받아올림·받아내림과 곱셈구구를 정확히 익히고 길이 재기, 시각 읽기로 생활 속 수학을 연결합니다."],
+      ["초3", "나눗셈과 분수·소수의 첫 개념을 그림과 식으로 이해하고 문장제를 식으로 바꾸는 연습을 시작합니다."],
+      ["초4", "큰 수, 분수의 덧셈·뺄셈, 각도와 삼각형을 다루며 계산 속도보다 정확한 이해를 먼저 다집니다."],
+      ["초5", "약수와 배수, 약분·통분, 분수의 곱셈처럼 중학 수학으로 이어지는 핵심 연산을 집중 관리합니다."],
+      ["초6", "분수·소수의 나눗셈, 비와 비율, 원의 넓이를 정리하고 예비중1 과정으로 자연스럽게 넘어갑니다."]
+    ],
+    topics: [
+      ["수학수업", "교과서 진도를 그대로 따라가기보다 학생이 개념을 말로 설명할 수 있는지 확인하며 수업합니다. 그림, 수 모형, 짧은 문장제를 함께 사용해 이해가 눈에 보이도록 돕습니다."],
+      ["수학공부", "하루 20~30분이라도 혼자 공부할 수 있는 분량과 순서를 정합니다. 문제집을 많이 푸는 것보다 틀린 문제를 다시 풀고 이유를 적는 습관을 먼저 만듭니다."],
+      ["기초수학", "연산 실수, 분수 개념, 문장제 해석처럼 학년이 올라가며 커지는 빈틈을 진단해 이전 학년 내용부터 다시 채웁니다."]
+    ],
+    paragraphs: [
+      "초등 수학은 다음 학년의 기초가 됩니다. 연산 정확도, 분수 개념, 문장제 해석을 학년별로 점검해 중학 수학까지 무리 없이 이어지도록 준비합니다.",
+      "문제를 빨리 푸는 것보다 왜 그렇게 푸는지 설명하는 힘을 기릅니다. 수업마다 짧은 확인 문제를 두어 이해한 내용이 실제로 남았는지 점검합니다.",
+      "학교 단원평가 일정에 맞춰 복습 시점을 정하고, 아이가 혼자 풀 수 있는 문제 수준을 조금씩 높여 갑니다."
+    ],
+    faqs: place => [
+      [`${place} 초등 수학과외는 몇 학년부터 가능한가요?`, "초등 1학년부터 6학년까지 가능합니다. 학년보다 현재 이해 수준을 먼저 확인해 수업 난이도와 진도를 정합니다."],
+      ["기초수학이 많이 부족해도 수업할 수 있나요?", "가능합니다. 이전 학년 연산과 개념부터 진단해 빈틈을 채운 뒤 현재 학년 진도로 연결합니다."],
+      ["초등 수학공부는 집에서 어떻게 해야 하나요?", "수업마다 학생이 혼자 해낼 수 있는 분량의 과제를 정하고, 틀린 문제를 다시 풀며 이유를 적는 습관을 만들도록 안내합니다."],
+      [`${place} 초등 수학수업 시간과 장소는 어떻게 정하나요?`, "세부 위치와 희망 요일·시간을 확인한 뒤 전화 상담에서 가능한 일정과 수업 방식을 안내합니다."]
+    ]
+  },
+  {
+    slug: "middle",
+    label: "중등",
+    learner: "중학생",
+    en: "MIDDLE SCHOOL MATH",
+    range: "중1~중3",
+    titleTail: "수학내신·기초수학 1:1 맞춤 수업",
+    descKeywords: "중등 수학수업·수학공부·기초수학·수학내신",
+    summary: "학교 내신과 서술형, 고등 선행까지 연결하는 중등 수학",
+    grades: [
+      ["중1", "소인수분해, 정수와 유리수, 문자와 식, 일차방정식, 좌표평면과 그래프로 중학 수학의 기본 언어를 익힙니다."],
+      ["중2", "유리수와 순환소수, 식의 계산, 연립방정식, 일차함수, 도형의 성질과 확률을 서술형 풀이까지 연결합니다."],
+      ["중3", "제곱근과 실수, 인수분해, 이차방정식과 이차함수, 삼각비와 원의 성질을 정리하며 고등 수학을 준비합니다."]
+    ],
+    topics: [
+      ["수학수업", "개념 설명, 대표 유형, 변형 문제 순서로 수업하고 학생이 풀이 과정을 직접 설명하게 해 이해 정도를 확인합니다."],
+      ["수학공부", "수업과 수업 사이의 자습 계획을 함께 세웁니다. 교재 분량, 오답 정리 방법, 복습 주기를 학생 일정에 맞춰 정합니다."],
+      ["기초수학", "방정식과 함수가 어렵다면 이전 학년 개념이 비어 있는 경우가 많습니다. 꼭 필요한 단원만 골라 짧게 보완하고 현재 진도와 병행합니다."],
+      ["수학내신", "학교별 시험 범위, 교과서, 기출 경향을 확인해 시험 4주 전부터 개념 정리, 유형 연습, 서술형 대비, 실전 점검 순서로 준비합니다."]
+    ],
+    paragraphs: [
+      "중등 수학은 학교 내신이 처음으로 성적표에 남는 시기입니다. 개념 이해와 서술형 풀이, 시험 범위별 유형 연습을 균형 있게 관리합니다.",
+      "중학교에서 흔들린 함수와 방정식은 고등 수학에서 더 큰 공백이 됩니다. 현재 학년 진도와 이전 학년 복습을 함께 설계합니다.",
+      "시험 기간과 방학을 구분해 선행과 내신 대비의 비중을 조정하고, 학생이 혼자 공부하는 시간까지 계획에 포함합니다."
+    ],
+    faqs: place => [
+      [`${place} 중등 수학내신은 어떻게 대비하나요?`, "학교별 시험 범위와 교과서, 기출 경향을 확인해 시험 4주 전부터 개념 정리, 유형 연습, 서술형 대비, 실전 점검 순서로 준비합니다."],
+      ["중학 수학 기초가 부족하면 선행보다 복습이 먼저인가요?", "대부분 그렇습니다. 진단 후 꼭 필요한 이전 단원만 골라 짧게 보완하고 현재 학년 진도와 병행합니다."],
+      ["예비고1 선행도 가능한가요?", "중3 과정을 마무리하며 공통수학1·2를 단계적으로 시작합니다. 선행 속도는 학생의 이해도에 맞춰 조정합니다."],
+      [`${place} 중등 수학과외 수업료는 어떻게 되나요?`, "학년과 주당 수업 횟수, 수업 시간에 따라 달라지며 전화 상담 시 자세히 안내합니다."]
+    ]
+  },
+  {
+    slug: "high",
+    label: "고등",
+    learner: "고등학생",
+    en: "HIGH SCHOOL MATH",
+    range: "고1~고3",
+    titleTail: "수학내신·수능수학 1:1 맞춤 수업",
+    descKeywords: "고등 수학내신·수능대비·수능수학·기초수학",
+    summary: "내신 등급과 수능 수학을 함께 준비하는 고등 수학",
+    grades: [
+      ["고1", "공통수학1·2의 다항식, 방정식과 부등식, 경우의 수, 행렬, 도형의 방정식, 집합과 명제, 함수를 내신 중심으로 다집니다."],
+      ["고2", "대수, 미적분Ⅰ, 확률과 통계 등 학교 선택 과목에 맞춰 내신과 모의고사를 함께 대비합니다."],
+      ["고3", "수능 출제 범위의 개념과 기출을 연결하고, 시간 배분과 실수 관리까지 포함한 실전 모의고사 루틴을 만듭니다."]
+    ],
+    topics: [
+      ["수학수업", "개념의 정의와 성질을 먼저 정리하고 교과서 예제, 학교 기출, 모의고사 문항으로 난도를 높여 가며 수업합니다."],
+      ["수학공부", "내신 기간과 비내신 기간의 공부 비중을 나누고, 주간 단위로 문제 풀이량과 오답 복습 일정을 관리합니다."],
+      ["기초수학", "고등 수학이 어려운 이유가 중학 개념의 빈틈인 경우가 많습니다. 인수분해, 함수, 방정식처럼 필요한 단원만 골라 빠르게 보완합니다."],
+      ["수학내신", "학교별 기출과 부교재, 수행평가 일정을 확인해 서술형과 고난도 문항까지 대비하는 시험 계획을 세웁니다."],
+      ["수능대비", "모의고사 성적표로 취약 단원과 시간 손실 구간을 찾고 기출 분석, 유형 정리, 실전 모의고사 순서로 준비합니다."],
+      ["수능수학", "고난도 문항에만 매달리기보다 공통 과목의 정확도를 먼저 높이고, 문항별 풀이 시간을 관리해 등급을 안정시킵니다."]
+    ],
+    paragraphs: [
+      "고등 수학은 내신 등급과 수능을 함께 준비해야 합니다. 학교별 시험 경향과 모의고사 결과를 함께 보고 시기별 학습 비중을 조정합니다.",
+      "개념을 알아도 시험에서 점수가 나오지 않는다면 풀이 순서와 시간 관리의 문제일 수 있습니다. 실전 형식의 연습으로 점수로 이어지는 공부를 합니다.",
+      "고1 공통수학부터 고3 수능 수학까지 학년별 과제가 다릅니다. 진로와 선택 과목을 고려해 지금 집중해야 할 범위를 정합니다."
+    ],
+    faqs: place => [
+      [`${place} 고등 수학내신과 수능대비를 함께 할 수 있나요?`, "시험 기간에는 내신 비중을, 시험이 끝난 뒤에는 모의고사와 수능 수학 비중을 높이는 방식으로 함께 관리합니다."],
+      ["고등학생인데 기초수학부터 다시 해도 될까요?", "고등 수학에 필요한 중학 개념만 골라 빠르게 보완합니다. 기초를 다지면서 현재 학교 진도도 함께 따라갑니다."],
+      ["수능 수학 등급을 올리려면 무엇부터 해야 하나요?", "최근 모의고사에서 틀린 문항을 개념 부족, 풀이 시간, 계산 실수로 나누어 원인부터 확인하고 그에 맞춰 기출과 실전 연습의 비중을 정합니다."],
+      [`${place} 고등 수학과외 수업료는 어떻게 되나요?`, "학년과 주당 수업 횟수, 수업 시간에 따라 달라지며 전화 상담 시 자세히 안내합니다."]
+    ]
+  }
+];
+
+const pick = (items, index) => items[index % items.length];
+const pageUrl = (...parts) => `${siteUrl}/${parts.filter(Boolean).join("/")}${parts.length ? "/" : ""}`;
+const regionPath = (region, level) => `/areas/${region.slug}/${level ? `${level.slug}/` : ""}`;
+
 const gradeCards = grades.map(([name, text]) => `<article class="grade-card"><span>PREP COURSE</span><h3>${name} 수학과외</h3><p>${text}</p></article>`).join("");
 const regionLinks = regions.map(region => `<a class="region-link" href="/areas/${region.slug}/"><small>${region.group}</small><strong>${region.name} 수학과외</strong><span aria-hidden="true">↗</span></a>`).join("");
 const regionSelectLinks = regions.map((region, index) => `<a class="region-select-link" href="/areas/${region.slug}/"><span>${String(index + 1).padStart(2, "0")}</span><strong>${region.name}</strong><i aria-hidden="true">↗</i></a>`).join("");
 
-function layout({ title, description, canonical, body, image = "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=85" }) {
-  const structuredData = {
+function levelCards(place, region) {
+  return levels.map((level, index) => `<a class="level-card" href="${region ? regionPath(region, level) : `/${level.slug}/`}"><span>0${index + 1} · ${level.en}</span><h3>${place} ${level.label} 수학과외</h3><p>${level.summary}. ${level.topics.map(([topic]) => `${level.label} ${topic}`).join(" · ")}</p><b>${level.range} 수업 안내 <i aria-hidden="true">→</i></b></a>`).join("");
+}
+
+function faqSection(faqs, heading) {
+  return `<section class="faq-section" id="faq"><div class="wrap"><div class="section-heading"><div><p class="kicker">FAQ</p><h2>${heading}</h2></div><p>상담 전에 많이 물어보시는 내용을 정리했습니다. 더 궁금한 점은 전화로 편하게 문의해 주세요.</p></div><div class="faq-list">${faqs.map(([question, answer], index) => `<details${index === 0 ? " open" : ""}><summary>${question}</summary><p>${answer}</p></details>`).join("")}</div></div></section>`;
+}
+
+function faqSchema(faqs) {
+  return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })) };
+}
+
+function breadcrumbSchema(items) {
+  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map(([name, item], index) => ({ "@type": "ListItem", position: index + 1, name, item })) };
+}
+
+function ctaSection(heading) {
+  return `<section class="local-cta"><div class="wrap"><div><p class="kicker">CONSULTATION</p><h2>${heading}</h2></div><a class="button button-primary" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></section>`;
+}
+
+function layout({ title, description, canonical, body, schema = [], robots = "index, follow, max-image-preview:large", image = "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=85" }) {
+  const organization = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     name: "세종 수학과외",
     url: siteUrl,
     telephone: phone,
-    areaServed: "세종특별자치시",
+    image,
+    areaServed: [{ "@type": "City", name: "세종특별자치시" }, ...regions.map(region => ({ "@type": "Place", name: `세종 ${region.name}` }))],
+    knowsAbout: ["초등 수학", "중등 수학", "고등 수학", "수학내신", "수능수학", "기초수학"],
     description
   };
   return `<!doctype html>
@@ -67,41 +196,58 @@ function layout({ title, description, canonical, body, image = "https://images.u
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${title}</title>
   <meta name="description" content="${description}">
+  <meta name="robots" content="${robots}">
   <meta name="naver-site-verification" content="6ded063826d77fdf063c2c08043715e4de8bbc7f">
   <meta name="google-site-verification" content="AMVRxffaVWjg7V-Ulls6OyuWKA7SUR1baVA6bwdj1f4">
   <meta name="theme-color" content="#12304a">
   <link rel="canonical" href="${canonical}">
+  <link rel="alternate" type="application/rss+xml" title="세종 수학과외" href="${siteUrl}/rss.xml">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="세종 수학과외">
+  <meta property="og:locale" content="ko_KR">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${image}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${title}">
+  <meta name="twitter:description" content="${description}">
+  <meta name="twitter:image" content="${image}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Song+Myung&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css">
-  <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
+  ${[organization, ...schema].map(data => `<script type="application/ld+json">${JSON.stringify(data)}</script>`).join("\n  ")}
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 바로가기</a>
-  <header class="site-header"><div class="wrap nav-inner"><a class="brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><nav aria-label="주요 메뉴"><a href="/#method">수업 방식</a><a href="/#grades">학년별 수업</a><a href="/#areas">지역 찾기</a></nav><a class="nav-cta" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></header>
+  <header class="site-header"><div class="wrap nav-inner"><a class="brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><nav aria-label="주요 메뉴"><a href="/#method">수업 방식</a>${levels.map(level => `<a href="/${level.slug}/">${level.label} 수학</a>`).join("")}<a href="/#areas">지역 찾기</a></nav><a class="nav-cta" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></header>
   ${body}
-  <footer><div class="wrap footer-inner"><a class="brand footer-brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><p>학생의 이해에서 시작하는 1:1 맞춤 수업</p><p>© 2026 세종 수학과외</p></div></footer>
+  <footer><div class="wrap footer-inner"><a class="brand footer-brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><p>학생의 이해에서 시작하는 1:1 맞춤 수업 · <a href="${phoneHref}">${phone}</a></p><p>© 2026 세종 수학과외</p></div></footer>
 </body>
 </html>`;
 }
 
+const homeFaqs = [
+  ["세종 수학과외는 어느 지역까지 가능한가요?", "조치원읍과 9개 면, 한솔동부터 집현동까지 세종특별자치시 26개 읍·면·동 전 지역 상담이 가능합니다. 세부 위치에 따라 수업 방식을 안내합니다."],
+  ["초등·중등·고등 수업은 어떻게 다른가요?", "초등은 연산과 기초수학, 중등은 수학내신과 서술형, 고등은 내신 등급과 수능수학에 초점을 맞춥니다. 학년보다 현재 실력을 먼저 진단해 출발점을 정합니다."],
+  ["학원과 1:1 수학과외는 무엇이 다른가요?", "1:1 수학과외는 학생 한 명의 진도와 이해 속도에 맞춰 수업합니다. 막힌 단원에서 충분히 머물고, 이미 아는 내용은 빠르게 넘어갈 수 있습니다."],
+  ["수업료와 수업 횟수는 어떻게 정하나요?", "학년, 주당 수업 횟수, 수업 시간에 따라 달라지며 전화 상담에서 학생 상황을 확인한 뒤 자세히 안내합니다."]
+];
+
 function homePage() {
-  const title = "세종 수학과외 | 예비중·예비고 1:1 맞춤 수업";
-  const description = "세종특별자치시 초중고 1:1 수학과외. 예비중1, 예비중2, 예비중3, 예비고1, 예비고2, 예비고3 학생별 내신·선행·수능 맞춤 수업.";
+  const title = "세종 수학과외 | 초등·중등·고등 1:1 수학수업, 내신·수능 대비";
+  const description = `세종특별자치시 26개 읍·면·동 초중고 1:1 수학과외. 초등 기초수학, 중등 수학내신, 고등 수능수학까지 학년별 맞춤 수업. 전화 상담 ${phone}`;
   const body = `<div class="region-selector" id="region-selector" hidden><div class="region-selector-backdrop" data-region-close></div><section class="region-selector-panel" role="dialog" aria-modal="true" aria-labelledby="region-selector-title"><button class="region-selector-close" type="button" aria-label="지역 선택창 닫기" data-region-close>×</button><p class="region-selector-kicker">REGION SELECT</p><h2 id="region-selector-title">어느 지역의<br>수학과외를 찾으시나요?</h2><p class="region-selector-copy">지역을 선택하면 해당 지역 수업 안내로 바로 이동합니다.</p><div class="region-selector-grid">${regionSelectLinks}</div></section></div>
   <main id="main">
-    <section class="hero"><img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=2000&q=88" alt="수학 도형과 공식이 적힌 학습 공간"><div class="hero-overlay"></div><div class="wrap hero-content"><p class="eyebrow">SEJONG · PRIVATE MATH COACHING</p><h1>세종<br>수학과외</h1><p class="hero-copy">답보다 먼저, 막힌 이유를 찾습니다.<br>학생의 학교 진도와 이해 속도에 맞춘 1:1 수업.</p><div class="hero-actions"><a class="button button-primary" href="#areas">우리 지역 수업 찾기 <span>→</span></a><a class="button button-phone" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></div><div class="hero-facts"><span>초등 · 중등 · 고등</span><span>내신 · 선행 · 수능</span><span>세종 전 지역 상담</span></div></section>
+    <section class="hero"><img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=2000&q=88" alt="세종 수학과외 수업 공간의 수학 도형과 공식"><div class="hero-overlay"></div><div class="wrap hero-content"><p class="eyebrow">SEJONG · PRIVATE MATH COACHING</p><h1>세종<br>수학과외</h1><p class="hero-copy">답보다 먼저, 막힌 이유를 찾습니다.<br>초등 기초수학부터 고등 수능수학까지, 학생의 이해 속도에 맞춘 1:1 수업.</p><div class="hero-actions"><a class="button button-primary" href="#areas">우리 지역 수업 찾기 <span>→</span></a><a class="button button-phone" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></div><div class="hero-facts"><span>초등 · 중등 · 고등</span><span>내신 · 선행 · 수능</span><span>세종 전 지역 상담</span></div></section>
     <section class="method" id="method"><div class="wrap"><div class="section-heading"><div><p class="kicker">01 · HOW WE TEACH</p><h2>풀이가 아니라<br>생각의 순서를 봅니다</h2></div><p>같은 문제를 틀려도 이유는 다릅니다. 개념이 비어 있는지, 문제의 조건을 놓쳤는지, 계산 습관이 흔들리는지 먼저 구분한 뒤 수업의 출발점을 정합니다.</p></div><div class="method-grid"><article><b>01</b><h3>현재 학습 진단</h3><p>최근 시험지와 교재를 통해 정확한 취약 지점을 확인합니다.</p></article><article><b>02</b><h3>개인 진도 설계</h3><p>학교 일정, 목표 성적, 가능한 학습 시간을 함께 반영합니다.</p></article><article><b>03</b><h3>이해 중심 수업</h3><p>학생이 풀이의 이유를 자신의 말로 설명할 때까지 확인합니다.</p></article><article><b>04</b><h3>오답과 습관 관리</h3><p>반복되는 실수는 기록하고 다음 수업 계획에 바로 반영합니다.</p></article></div></div></section>
-    <section class="grade-section" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">02 · GRADE TRANSITION</p><h2>학년이 바뀌면<br>준비도 달라야 합니다</h2></div><p>빠른 선행보다 중요한 것은 다음 과정에 필요한 이전 개념을 정확히 연결하는 일입니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
-    <section class="study-scene"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85" alt="노트에 학습 내용을 정리하는 학생" loading="lazy"><div><p class="kicker">STUDY WITH DIRECTION</p><h2>혼자 공부할 때도<br>흔들리지 않도록</h2><p>과외 시간에만 풀 수 있는 문제는 오래 남지 않습니다. 문제를 읽고, 조건을 표시하고, 풀이를 검토하는 루틴을 반복해 스스로 공부하는 기준을 만듭니다.</p><ul><li>학교별 시험 범위와 일정 반영</li><li>매 수업 오답 원인 기록</li><li>개인별 과제량과 복습 주기 조정</li></ul></div></section>
-    <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">03 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 읍·면과 생활권별 동 페이지에서 가까운 지역의 수업 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
-    <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">04 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 전화로 편하게 상담을 신청해 주세요.</p><a class="button button-dark" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></div></section>
+    <section class="level-section" id="levels"><div class="wrap"><div class="section-heading"><div><p class="kicker">02 · BY SCHOOL LEVEL</p><h2>초등·중등·고등<br>단계별 수학수업</h2></div><p>초등 수학공부 습관, 중등 수학내신, 고등 수능대비까지 학교급마다 필요한 수업이 다릅니다. 학생의 단계에 맞는 세종 수학과외를 확인하세요.</p></div><div class="level-grid">${levelCards("세종")}</div></div></section>
+    <section class="grade-section" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">03 · GRADE TRANSITION</p><h2>학년이 바뀌면<br>준비도 달라야 합니다</h2></div><p>빠른 선행보다 중요한 것은 다음 과정에 필요한 이전 개념을 정확히 연결하는 일입니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
+    <section class="study-scene"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85" alt="노트에 수학 공부 내용을 정리하는 학생" loading="lazy"><div><p class="kicker">STUDY WITH DIRECTION</p><h2>혼자 공부할 때도<br>흔들리지 않도록</h2><p>과외 시간에만 풀 수 있는 문제는 오래 남지 않습니다. 문제를 읽고, 조건을 표시하고, 풀이를 검토하는 루틴을 반복해 스스로 공부하는 기준을 만듭니다.</p><ul><li>학교별 시험 범위와 일정 반영</li><li>매 수업 오답 원인 기록</li><li>개인별 과제량과 복습 주기 조정</li></ul></div></section>
+    <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">04 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 읍·면과 생활권별 동 페이지에서 가까운 지역의 초등·중등·고등 수학과외 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
+    ${faqSection(homeFaqs, "세종 수학과외<br>자주 묻는 질문")}
+    <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">06 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 전화로 편하게 상담을 신청해 주세요.</p><a class="button button-dark" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></div></section>
   </main>
   <script>
     const selector = document.querySelector("#region-selector");
@@ -125,36 +271,108 @@ function homePage() {
       selector.querySelector(".region-selector-close").focus();
     }
   </script>`;
-  return layout({ title, description, canonical: `${siteUrl}/`, body });
+  return layout({ title, description, canonical: `${siteUrl}/`, body, schema: [faqSchema(homeFaqs)] });
 }
 
-function regionPage(region) {
-  const title = `${region.name} 수학과외 | 세종 예비중·예비고 맞춤 수업`;
-  const description = `세종 ${region.name} 초중고 1:1 수학과외. 예비중1, 예비중2, 예비중3, 예비고1, 예비고2, 예비고3 학생의 내신·선행·수능 맞춤 학습.`;
-  const nearby = regions.filter(item => item.slug !== region.slug).slice(0, 8).map(item => `<a href="/areas/${item.slug}/">${item.name}<span>→</span></a>`).join("");
+function regionPage(region, index) {
+  const title = `세종 ${region.name} 수학과외 | 초등·중등·고등 1:1 수학수업`;
+  const description = `세종 ${region.name} 수학과외. 초등 기초수학부터 중등 수학내신, 고등 수능수학까지 학년별 1:1 맞춤 수업. ${region.nearby} 인근 전화 상담 ${phone}`;
+  const nearby = regions.filter(item => item.slug !== region.slug).slice(0, 8).map(item => `<a href="/areas/${item.slug}/">${item.name} 수학과외<span>→</span></a>`).join("");
+  const faqs = [
+    [`${region.name} 수학과외는 어떤 학생이 받을 수 있나요?`, `세종 ${region.name}에 사는 초등학생부터 고3까지, 예비중·예비고 학생 모두 상담할 수 있습니다. 현재 실력과 목표를 확인해 수업 출발점을 정합니다.`],
+    [`${region.name} 초등·중등·고등 수학수업은 어떻게 다른가요?`, "초등은 연산과 기초수학, 중등은 수학내신과 서술형 풀이, 고등은 내신 등급과 수능수학에 중점을 둡니다."],
+    [`${region.name} 수학과외 수업 시간과 방식은 어떻게 정하나요?`, `${region.nearby} 등 세부 위치와 희망 요일·시간을 확인한 뒤 전화 상담에서 가능한 일정과 수업 방식을 안내합니다.`],
+    ["수업료는 어떻게 되나요?", "학년과 주당 수업 횟수, 수업 시간에 따라 달라지며 전화 상담 시 자세히 안내합니다."]
+  ];
   const body = `<main id="main" class="local-page">
     <section class="local-hero"><div class="wrap"><nav class="breadcrumbs" aria-label="현재 위치"><a href="/">세종</a><span>/</span><strong>${region.name}</strong></nav><p class="eyebrow">${region.group} · LOCAL MATH COACHING</p><h1>${region.name}<br>수학과외</h1><p>${region.nearby}에서 만나는 1:1 맞춤 수업. ${region.focus} 방식으로 학생의 공부 흐름을 바로잡습니다.</p></div></section>
     <section class="local-intro"><div class="wrap section-heading"><div><p class="kicker">LOCAL STUDY PLAN</p><h2>가까운 곳에서<br>꾸준히 배우는 수학</h2></div><div><p>세종 ${region.name} 수학과외는 최근 시험지와 현재 사용하는 교재를 먼저 살펴봅니다. 정답 개수만 확인하지 않고 개념 이해, 풀이 순서, 계산 습관 중 어디에서 막혔는지 구분해 다음 학습량을 정합니다.</p><p>${region.focus}. 초등 개념과 연산, 중등 내신의 서술형 풀이, 고등 수학의 개념 연결과 문제 해석까지 현재 필요한 단계에 집중합니다.</p></div></div></section>
-    <section class="grade-section local-grades" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">GRADE TRANSITION</p><h2>${region.name} 학년별<br>수학 학습 안내</h2></div><p>학년 전환기의 복습과 선행을 학생별 이해도에 맞춰 조정합니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
+    <section class="level-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">BY SCHOOL LEVEL</p><h2>${region.name} 초등·중등·고등<br>수학수업 안내</h2></div><p>${pick(levels, index).paragraphs[0]}</p></div><div class="level-grid">${levelCards(region.name, region)}</div></div></section>
+    <section class="grade-section local-grades" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">GRADE TRANSITION</p><h2>${region.name} 학년별<br>수학 학습 안내</h2></div><p>학년 전환기의 복습과 선행을 학생별 이해도에 맞춰 조정합니다.</p></div><div class="grade-grid">${gradeCards.replaceAll("<h3>", `<h3>${region.name} `)}</div></div></section>
+    ${faqSection(faqs, `${region.name} 수학과외<br>자주 묻는 질문`)}
     <section class="local-details"><div class="wrap detail-grid"><article><p class="kicker">LESSON FOCUS</p><h2>${region.name} 학생에게 맞는<br>현실적인 계획</h2><p>학교별 시험 일정과 학생의 생활 패턴을 고려해 무리하지 않고 이어갈 수 있는 주간 계획을 세웁니다. 대면 수업 가능 여부와 시간은 세부 위치와 희망 일정에 따라 상담 후 안내합니다.</p></article><article><p class="kicker">NEARBY AREAS</p><h3>세종 다른 지역 수학과외</h3><div class="nearby-links">${nearby}</div></article></div></section>
-    <section class="local-cta"><div class="wrap"><div><p class="kicker">CONSULTATION</p><h2>${region.name} 수학과외 상담</h2></div><a class="button button-primary" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></section>
+    ${ctaSection(`${region.name} 수학과외 상담`)}
   </main>`;
-  return layout({ title, description, canonical: `${siteUrl}/areas/${region.slug}/`, body });
+  const schema = [faqSchema(faqs), breadcrumbSchema([["세종 수학과외", `${siteUrl}/`], [`${region.name} 수학과외`, pageUrl("areas", region.slug)]])];
+  return layout({ title, description, canonical: pageUrl("areas", region.slug), body, schema });
 }
+
+function levelPage(level, region, index = 0) {
+  const place = region ? region.name : "세종";
+  const fullPlace = region ? `세종 ${region.name}` : "세종";
+  const levelIndex = levels.indexOf(level);
+  const title = `${fullPlace} ${level.label} 수학과외 | ${level.titleTail}`;
+  const description = `${fullPlace} ${level.label} 수학과외. ${level.descKeywords}까지 ${level.range} 학년별 1:1 맞춤 관리. ${region ? `${region.nearby} 인근 ` : "세종 전 지역 "}전화 상담 ${phone}`;
+  const lead = region ? pick([
+    `세종 ${region.name} ${level.label} 수학과외는 ${region.nearby} 인근 ${level.learner}의 학교 진도와 현재 실력을 먼저 확인하고 수업을 시작합니다.`,
+    `${region.group} ${region.name}에서 ${level.learner} 수학을 1:1로 관리합니다. 최근 시험지와 사용 중인 교재를 살펴 막힌 단원부터 정리합니다.`,
+    `${region.name} ${level.learner}의 수학 고민은 저마다 다릅니다. 개념, 풀이 순서, 계산 습관 중 어디서 흔들리는지 구분해 수업 방향을 정합니다.`,
+    `${region.nearby}에 사는 ${level.learner}를 위한 ${region.name} ${level.label} 수학수업입니다. ${region.focus}에 초점을 맞춥니다.`
+  ], index + levelIndex) : `세종특별자치시 26개 읍·면·동의 ${level.learner}를 위한 1:1 ${level.label} 수학과외입니다. 학교 진도와 현재 실력을 먼저 확인하고 수업을 시작합니다.`;
+  const paragraphs = [pick(level.paragraphs, index), pick(level.paragraphs, index + 1)];
+  const faqs = level.faqs(place);
+  const topicCards = level.topics.map(([topic, text], topicIndex) => `<article><b>${String(topicIndex + 1).padStart(2, "0")}</b><h3>${place} ${level.label} ${topic}</h3><p>${text}</p></article>`).join("");
+  const levelGradeCards = level.grades.map(([name, text]) => `<article class="grade-card"><span>${level.en}</span><h3>${place} ${name} 수학과외</h3><p>${text}</p></article>`).join("");
+  const otherLevels = levels.filter(item => item !== level).map(item => `<a href="${region ? regionPath(region, item) : `/${item.slug}/`}">${place} ${item.label} 수학과외<span>→</span></a>`).join("");
+  const related = region
+    ? `<a href="${regionPath(region)}">${region.name} 수학과외<span>→</span></a>${otherLevels}<a href="/${level.slug}/">세종 ${level.label} 수학과외<span>→</span></a>`
+    : `<a href="/">세종 수학과외<span>→</span></a>${otherLevels}`;
+  const nearbyRegions = region
+    ? regions.filter(item => item.slug !== region.slug && item.group === region.group).concat(regions.filter(item => item.slug !== region.slug && item.group !== region.group)).slice(0, 6)
+    : [];
+  const nearbyBlock = region
+    ? `<article><p class="kicker">NEARBY AREAS</p><h3>세종 다른 지역 ${level.label} 수학과외</h3><div class="nearby-links">${nearbyRegions.map(item => `<a href="${regionPath(item, level)}">${item.name} ${level.label} 수학<span>→</span></a>`).join("")}</div></article>`
+    : `<article><p class="kicker">LESSON FOCUS</p><h3>${level.label} 수학, 이런 학생에게 맞습니다</h3><p>${level.paragraphs[2]}</p></article>`;
+  const regionSection = region ? "" : `<section class="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">LOCAL CLASS</p><h2>지역별 세종<br>${level.label} 수학과외</h2></div><p>가까운 읍·면·동을 선택하면 해당 지역 ${level.label} 수학수업 안내를 확인할 수 있습니다.</p></div><div class="region-grid">${regions.map(item => `<a class="region-link" href="${regionPath(item, level)}"><small>${item.group}</small><strong>${item.name} ${level.label} 수학과외</strong><span aria-hidden="true">↗</span></a>`).join("")}</div></div></section>`;
+  const crumbs = region
+    ? `<a href="/">세종</a><span>/</span><a href="${regionPath(region)}">${region.name}</a><span>/</span><strong>${level.label}</strong>`
+    : `<a href="/">세종</a><span>/</span><strong>${level.label} 수학과외</strong>`;
+  const body = `<main id="main" class="local-page">
+    <section class="local-hero"><div class="wrap"><nav class="breadcrumbs" aria-label="현재 위치">${crumbs}</nav><p class="eyebrow">${region ? `${region.group} · ` : ""}${level.en} · ${level.range}</p><h1>${place}<br>${level.label} 수학과외</h1><p>${lead}</p></div></section>
+    <section class="local-intro"><div class="wrap section-heading"><div><p class="kicker">STUDY PLAN</p><h2>${place} ${level.label} 수학,<br>지금 필요한 단계부터</h2></div><div><p>${paragraphs[0]}</p><p>${paragraphs[1]}</p></div></div></section>
+    <section class="topic-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">LESSON PROGRAM</p><h2>${place} ${level.label}<br>수학 수업 구성</h2></div><p>${level.descKeywords}까지 학생에게 지금 필요한 수업을 골라 진행합니다.</p></div><div class="topic-grid">${topicCards}</div></div></section>
+    <section class="grade-section local-grades" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">GRADE BY GRADE</p><h2>${place} ${level.range}<br>학년별 수학과외</h2></div><p>학년마다 꼭 잡아야 할 단원이 다릅니다. 현재 학년 진도와 이전 학년 복습을 함께 설계합니다.</p></div><div class="grade-grid">${levelGradeCards}</div></div></section>
+    ${regionSection}
+    ${faqSection(faqs, `${place} ${level.label} 수학과외<br>자주 묻는 질문`)}
+    <section class="local-details"><div class="wrap detail-grid"><article><p class="kicker">RELATED CLASS</p><h2>함께 찾는<br>${place} 수학수업</h2><div class="nearby-links">${related}</div></article>${nearbyBlock}</div></section>
+    ${ctaSection(`${place} ${level.label} 수학과외 상담`)}
+  </main>`;
+  const canonical = region ? pageUrl("areas", region.slug, level.slug) : pageUrl(level.slug);
+  const crumbData = region
+    ? [["세종 수학과외", `${siteUrl}/`], [`${region.name} 수학과외`, pageUrl("areas", region.slug)], [`${region.name} ${level.label} 수학과외`, canonical]]
+    : [["세종 수학과외", `${siteUrl}/`], [`세종 ${level.label} 수학과외`, canonical]];
+  return { title, description, url: canonical, html: layout({ title, description, canonical, body, schema: [faqSchema(faqs), breadcrumbSchema(crumbData)] }) };
+}
+
+const pages = [];
+const addPage = async (relativeDir, html, meta) => {
+  const directory = path.join(dist, ...relativeDir);
+  await mkdir(directory, { recursive: true });
+  await writeFile(path.join(directory, "index.html"), html);
+  pages.push(meta);
+};
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, "assets"), { recursive: true });
 await writeFile(path.join(dist, "assets", "style.css"), await readFile(path.join(root, "src", "style.css"), "utf8"));
 await writeFile(path.join(dist, "index.html"), homePage());
-for (const region of regions) {
-  const directory = path.join(dist, "areas", region.slug);
-  await mkdir(directory, { recursive: true });
-  await writeFile(path.join(directory, "index.html"), regionPage(region));
+pages.push({ title: "세종 수학과외", description: "세종특별자치시 초중고 1:1 수학과외", url: `${siteUrl}/`, priority: "1.0" });
+for (const level of levels) {
+  const page = levelPage(level, null);
+  await addPage([level.slug], page.html, { ...page, priority: "0.9" });
 }
-const urls = [`${siteUrl}/`, ...regions.map(region => `${siteUrl}/areas/${region.slug}/`)];
-await writeFile(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(url => `\n  <url><loc>${url}</loc><lastmod>2026-10-01</lastmod><changefreq>weekly</changefreq></url>`).join("")}\n</urlset>\n`);
+for (const [index, region] of regions.entries()) {
+  await addPage(["areas", region.slug], regionPage(region, index), { title: `세종 ${region.name} 수학과외`, description: `세종 ${region.name} 초중고 1:1 수학과외`, url: pageUrl("areas", region.slug), priority: "0.8" });
+  for (const level of levels) {
+    const page = levelPage(level, region, index);
+    await addPage(["areas", region.slug, level.slug], page.html, { ...page, priority: "0.7" });
+  }
+}
+const lastmod = new Date().toISOString().slice(0, 10);
+await writeFile(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.map(page => `\n  <url><loc>${page.url}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${page.priority}</priority></url>`).join("")}\n</urlset>\n`);
+await writeFile(path.join(dist, "rss.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>세종 수학과외</title><link>${siteUrl}/</link><description>세종특별자치시 초등·중등·고등 1:1 수학과외</description><language>ko</language><lastBuildDate>${new Date().toUTCString()}</lastBuildDate>${pages.map(page => `\n  <item><title>${page.title}</title><link>${page.url}</link><guid>${page.url}</guid><description>${page.description}</description></item>`).join("")}\n</channel></rss>\n`);
 await writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 await writeFile(path.join(dist, "CNAME"), "tutorpro.kr\n");
 await writeFile(path.join(dist, ".nojekyll"), "");
-await writeFile(path.join(dist, "404.html"), layout({ title: "페이지를 찾을 수 없습니다 | 세종 수학과외", description: "요청하신 페이지를 찾을 수 없습니다.", canonical: `${siteUrl}/404.html`, body: `<main class="not-found"><div><p class="kicker">404 ERROR</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 변경되었거나 존재하지 않는 페이지입니다.</p><a class="button button-primary" href="/">홈으로 돌아가기</a></div></main>` }));
-console.log(`Built ${regions.length + 1} pages for ${siteUrl}`);
+await writeFile(path.join(dist, "404.html"), layout({ title: "페이지를 찾을 수 없습니다 | 세종 수학과외", description: "요청하신 페이지를 찾을 수 없습니다.", canonical: `${siteUrl}/404.html`, robots: "noindex, follow", body: `<main class="not-found"><div><p class="kicker">404 ERROR</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 변경되었거나 존재하지 않는 페이지입니다.</p><a class="button button-primary" href="/">홈으로 돌아가기</a></div></main>` }));
+console.log(`Built ${pages.length} pages for ${siteUrl}`);
