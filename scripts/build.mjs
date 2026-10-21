@@ -1,4 +1,4 @@
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -183,6 +183,7 @@ function layout({ title, description, canonical, body, schema = [], robots = "in
     "@type": "EducationalOrganization",
     name: "세종 수학과외",
     url: siteUrl,
+    logo: `${siteUrl}/icon-512.png`,
     telephone: phone,
     image,
     areaServed: [{ "@type": "City", name: "세종특별자치시" }, ...regions.map(region => ({ "@type": "Place", name: `세종 ${region.name}` }))],
@@ -200,6 +201,8 @@ function layout({ title, description, canonical, body, schema = [], robots = "in
   <meta name="naver-site-verification" content="6ded063826d77fdf063c2c08043715e4de8bbc7f">
   <meta name="google-site-verification" content="AMVRxffaVWjg7V-Ulls6OyuWKA7SUR1baVA6bwdj1f4">
   <meta name="theme-color" content="#12304a">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" type="application/rss+xml" title="세종 수학과외" href="${siteUrl}/rss.xml">
   <meta property="og:type" content="website">
@@ -355,6 +358,7 @@ const addPage = async (relativeDir, html, meta) => {
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, "assets"), { recursive: true });
 await writeFile(path.join(dist, "assets", "style.css"), await readFile(path.join(root, "src", "style.css"), "utf8"));
+for (const icon of ["favicon.ico", "apple-touch-icon.png", "icon-512.png"]) await copyFile(path.join(root, "src", "icons", icon), path.join(dist, icon));
 await writeFile(path.join(dist, "index.html"), homePage());
 pages.push({ title: "세종 수학과외", description: "세종특별자치시 초중고 1:1 수학과외", url: `${siteUrl}/`, priority: "1.0" });
 for (const level of levels) {
