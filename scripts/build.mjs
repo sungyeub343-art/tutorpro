@@ -224,7 +224,7 @@ function layout({ title, description, canonical, body, schema = [], robots = "in
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 바로가기</a>
-  <header class="site-header"><div class="wrap nav-inner"><a class="brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><nav aria-label="주요 메뉴"><a href="/#method">수업 방식</a>${levels.map(level => `<a href="/${level.slug}/">${level.label} 수학</a>`).join("")}<a href="/#areas">지역 찾기</a></nav><a class="nav-cta" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></header>
+  <header class="site-header"><div class="wrap nav-inner"><a class="brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><nav aria-label="주요 메뉴"><a href="/#method">수업 방식</a>${levels.map(level => `<a href="/${level.slug}/">${level.label} 수학</a>`).join("")}<a href="/guide/">학습 가이드</a><a href="/#areas">지역 찾기</a></nav><a class="nav-cta" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone}</a></div></header>
   ${body}
   <footer><div class="wrap footer-inner"><a class="brand footer-brand" href="/"><span aria-hidden="true">S</span>세종 수학과외</a><p>학생의 이해에서 시작하는 1:1 맞춤 수업 · <a href="${phoneHref}">${phone}</a></p><p>© 2026 세종 수학과외</p></div></footer>
 </body>
@@ -249,6 +249,7 @@ function homePage() {
     <section class="grade-section" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">03 · GRADE TRANSITION</p><h2>학년이 바뀌면<br>준비도 달라야 합니다</h2></div><p>빠른 선행보다 중요한 것은 다음 과정에 필요한 이전 개념을 정확히 연결하는 일입니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
     <section class="study-scene"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85" alt="노트에 수학 공부 내용을 정리하는 학생" loading="lazy"><div><p class="kicker">STUDY WITH DIRECTION</p><h2>혼자 공부할 때도<br>흔들리지 않도록</h2><p>과외 시간에만 풀 수 있는 문제는 오래 남지 않습니다. 문제를 읽고, 조건을 표시하고, 풀이를 검토하는 루틴을 반복해 스스로 공부하는 기준을 만듭니다.</p><ul><li>학교별 시험 범위와 일정 반영</li><li>매 수업 오답 원인 기록</li><li>개인별 과제량과 복습 주기 조정</li></ul></div></section>
     <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">04 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 읍·면과 생활권별 동 페이지에서 가까운 지역의 초등·중등·고등 수학과외 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
+    <section class="level-section guide-section" id="guide"><div class="wrap"><div class="section-heading"><div><p class="kicker">05 · STUDY GUIDE</p><h2>세종 학부모님이<br>자주 찾는 수학 정보</h2></div><p>수학학원과 과외 선택 기준, 예비중1·예비고1 방학 로드맵, 중·고등 수학 내신과 영재교육원 준비까지 정리했습니다.</p></div><div class="level-grid">${guideCards(guides)}</div></div></section>
     ${faqSection(homeFaqs, "세종 수학과외<br>자주 묻는 질문")}
     <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">06 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 전화로 편하게 상담을 신청해 주세요.</p><a class="button button-dark" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></div></section>
   </main>
@@ -317,9 +318,10 @@ function levelPage(level, region, index = 0) {
   const topicCards = level.topics.map(([topic, text], topicIndex) => `<article><b>${String(topicIndex + 1).padStart(2, "0")}</b><h3>${place} ${level.label} ${topic}</h3><p>${text}</p></article>`).join("");
   const levelGradeCards = level.grades.map(([name, text]) => `<article class="grade-card"><span>${level.en}</span><h3>${place} ${name} 수학과외</h3><p>${text}</p></article>`).join("");
   const otherLevels = levels.filter(item => item !== level).map(item => `<a href="${region ? regionPath(region, item) : `/${item.slug}/`}">${place} ${item.label} 수학과외<span>→</span></a>`).join("");
-  const related = region
+  const guideLinks = levelGuides[level.slug].map(slug => guides.find(guide => guide.slug === slug)).map(guide => `<a href="${guidePath(guide)}">세종 ${guide.label} 가이드<span>→</span></a>`).join("");
+  const related = (region
     ? `<a href="${regionPath(region)}">${region.name} 수학과외<span>→</span></a>${otherLevels}<a href="/${level.slug}/">세종 ${level.label} 수학과외<span>→</span></a>`
-    : `<a href="/">세종 수학과외<span>→</span></a>${otherLevels}`;
+    : `<a href="/">세종 수학과외<span>→</span></a>${otherLevels}`) + guideLinks;
   const nearbyRegions = region
     ? regions.filter(item => item.slug !== region.slug && item.group === region.group).concat(regions.filter(item => item.slug !== region.slug && item.group !== region.group)).slice(0, 6)
     : [];
@@ -347,6 +349,155 @@ function levelPage(level, region, index = 0) {
   return { title, description, url: canonical, html: layout({ title, description, canonical, body, schema: [faqSchema(faqs), breadcrumbSchema(crumbData)] }) };
 }
 
+const guides = [
+  {
+    slug: "academy-vs-tutoring",
+    label: "학원 vs 과외",
+    title: "세종 수학학원 vs 수학과외 | 우리 아이에게 맞는 선택 기준",
+    description: `세종 수학학원과 1:1 수학과외의 차이, 학원 순위보다 먼저 확인할 것, 학생 유형별 추천을 정리했습니다. 초등·중등·고등 상담 ${phone}`,
+    h1: "세종 수학학원<br>vs 수학과외",
+    kicker: "CHOOSING GUIDE",
+    lead: "세종 수학학원 순위나 추천 글을 찾고 계신가요? 어디가 유명한지보다 우리 아이에게 어떤 수업 형태가 맞는지가 먼저입니다.",
+    sections: [
+      ["학원 순위보다 먼저 확인할 네 가지", `<p>같은 수학학원에 다녀도 성적이 오르는 학생과 그렇지 않은 학생이 있습니다. 학원이나 과외를 고르기 전에 아래 네 가지를 먼저 확인해 보세요.</p><ol><li><strong>현재 실력</strong>: 지금 학년 진도를 따라가고 있는지, 이전 학년 개념부터 비어 있는지</li><li><strong>수업 속도</strong>: 여러 명과 같은 속도로 나가도 괜찮은지</li><li><strong>질문 습관</strong>: 모르는 것을 수업 중에 스스로 질문하는 편인지</li><li><strong>자기 주도성</strong>: 숙제와 오답 정리를 혼자 해내는지</li></ol>`],
+      ["세종 수학학원과 1:1 수학과외 비교", `<div class="table-wrap"><table><thead><tr><th>항목</th><th>수학학원</th><th>1:1 수학과외</th></tr></thead><tbody><tr><th>수업 인원</th><td>여러 명이 같은 반에서 수업</td><td>학생 한 명</td></tr><tr><th>진도</th><td>반 커리큘럼 기준</td><td>학생 이해 속도 기준</td></tr><tr><th>질문</th><td>수업 후 질문 시간 활용</td><td>수업 중 바로 질문</td></tr><tr><th>내신 대비</th><td>학교별 반이 있으면 효과적</td><td>학생 학교의 범위·부교재에 맞춤</td></tr><tr><th>강점</th><td>체계적 커리큘럼, 또래와의 경쟁</td><td>빈틈 진단과 보완, 일정 조율</td></tr></tbody></table></div>`],
+      ["1:1 수학과외가 더 잘 맞는 학생", `<ul><li>이전 학년 개념이 비어 있어 반 진도를 따라가기 어려운 학생</li><li>수업 중에 질문하기를 어려워하는 학생</li><li>학원 진도보다 빠르게, 또는 더 깊게 공부하고 싶은 학생</li><li>운동, 예체능, 이동 거리 때문에 정해진 반 시간에 맞추기 어려운 학생</li><li>시험 범위와 부교재가 다른 학교에 다녀 맞춤 내신 대비가 필요한 학생</li></ul>`],
+      ["수학학원이 더 잘 맞는 학생", `<ul><li>현재 학년 진도를 무리 없이 따라가고 있는 학생</li><li>또래와 함께할 때 동기부여가 되는 학생</li><li>숙제와 오답 정리를 혼자서도 꾸준히 해내는 학생</li></ul><p>학원에 다니면서 특정 단원이나 시험 기간에만 1:1 수업으로 보완하는 방법도 많이 선택합니다.</p>`],
+      ["상담할 때 꼭 물어볼 체크리스트", `<ul><li>첫 수업 전에 현재 실력을 진단하나요?</li><li>우리 아이 학교의 시험 범위와 기출을 반영하나요?</li><li>오답은 어떻게 기록하고 다시 확인하나요?</li><li>학습 상황을 얼마나 자주, 어떤 방식으로 알려 주나요?</li><li>집에서 오가는 시간까지 고려했을 때 꾸준히 다닐 수 있나요?</li></ul>`]
+    ],
+    faqs: [
+      ["세종 수학학원 순위를 참고해도 될까요?", "참고는 할 수 있지만 순위가 높은 곳이 모든 학생에게 맞는 것은 아닙니다. 학생의 현재 실력, 수업 속도, 질문 습관에 맞는지가 더 중요합니다."],
+      ["학원과 과외를 같이 해도 되나요?", "가능합니다. 학원에서 진도를 나가고, 1:1 수업에서 막힌 단원과 내신 대비를 보완하는 방식이 많이 쓰입니다. 다만 숙제 분량이 과하지 않도록 조율해야 합니다."],
+      ["1:1 수학과외는 언제 시작하는 게 좋나요?", "성적이 떨어진 뒤보다 학년이 바뀌기 전 방학이나, 같은 단원에서 반복해서 막히기 시작할 때 시작하는 것이 효과적입니다."]
+    ],
+    related: ["/elementary/", "/middle/", "/high/"]
+  },
+  {
+    slug: "pre-middle1",
+    label: "예비중1 수학",
+    title: "세종 예비중1 수학 | 겨울방학 중학 수학 준비 로드맵",
+    description: `세종 예비중1 수학 준비, 겨울방학 12주 로드맵과 초6 수학 점검 항목, 선행 속도 기준을 정리했습니다. 1:1 수학과외 상담 ${phone}`,
+    h1: "세종 예비중1<br>수학 로드맵",
+    kicker: "WINTER PREP · 초6 → 중1",
+    lead: "중학교에서는 수학이 처음으로 시험 점수와 성적표로 남습니다. 초등 과정의 빈틈을 먼저 채우고, 중1 첫 단원을 무리 없이 시작하는 순서를 정리했습니다.",
+    sections: [
+      ["예비중1 수학이 중요한 이유", `<p>중1 수학은 정수와 유리수, 문자와 식처럼 <strong>수학의 언어가 바뀌는</strong> 단원으로 시작합니다. 초등학교 때 분수·소수 계산과 문장제 해석이 흔들렸던 학생은 이 시기에 처음 어려움을 느끼기 쉽습니다.</p><p>자유학기 운영 여부와 시험 일정은 학교마다 다르므로 입학 예정 학교의 일정을 함께 확인하는 것이 좋습니다.</p>`],
+      ["초6 수학 점검 체크리스트", `<ul><li>분수의 사칙연산을 실수 없이 할 수 있나요?</li><li>약수와 배수, 최대공약수·최소공배수를 설명할 수 있나요?</li><li>비와 비율, 백분율 문제를 식으로 세울 수 있나요?</li><li>문장제를 읽고 무엇을 구하는지 정리할 수 있나요?</li><li>도형의 넓이와 부피 공식을 이유와 함께 기억하나요?</li></ul><p>두 개 이상 자신이 없다면 중1 선행보다 초등 과정 보완을 먼저 권합니다.</p>`],
+      ["겨울방학 12주 로드맵", `<div class="table-wrap"><table><thead><tr><th>기간</th><th>학습 내용</th><th>목표</th></tr></thead><tbody><tr><th>1~3주</th><td>분수·소수 연산, 약수와 배수, 비와 비율 복습</td><td>초등 연산 정확도 확보</td></tr><tr><th>4~6주</th><td>소인수분해, 정수와 유리수</td><td>음수 계산 규칙 이해</td></tr><tr><th>7~9주</th><td>문자의 사용과 식의 계산, 일차방정식</td><td>식 세우기와 풀이 과정 서술</td></tr><tr><th>10~12주</th><td>좌표평면과 그래프, 정비례와 반비례</td><td>함수 개념의 첫 연결</td></tr></tbody></table></div><p>속도는 학생에 따라 조정합니다. 빠르게 많이 나가는 것보다 한 단원을 스스로 설명할 수 있을 때 다음 단원으로 넘어가는 것이 중학교 첫 시험에서 더 유리합니다.</p>`],
+      ["선행은 어디까지 하면 좋을까요?", `<p>초등 과정이 탄탄하다면 중1 1학기 과정을 한 번 정리하고 중1 2학기 도형 단원을 맛보는 정도가 적당합니다. 초등 과정에 빈틈이 있다면 중1 1학기 앞부분까지만 나가고 복습 비중을 높입니다.</p>`]
+    ],
+    faqs: [
+      ["예비중1 수학은 언제부터 준비하나요?", "초6 2학기 기말고사 이후 겨울방학에 시작하는 경우가 가장 많습니다. 초등 과정에 빈틈이 있다면 가을부터 복습을 시작하면 여유가 생깁니다."],
+      ["중1 수학 선행은 몇 학기 앞서야 하나요?", "학생마다 다릅니다. 초등 연산과 문장제가 안정적이면 한 학기 정도 앞서 나가고, 그렇지 않다면 복습을 우선합니다."],
+      ["예비중1도 1:1 수학과외가 효과적인가요?", "초등 과정의 어느 부분이 비어 있는지 정확히 찾아 보완해야 하는 시기라 1:1 진단 수업의 효과가 큰 편입니다."]
+    ],
+    related: ["/elementary/", "/middle/", "/guide/gifted/"]
+  },
+  {
+    slug: "pre-high1",
+    label: "예비고1 수학",
+    title: "세종 예비고1 수학 | 공통수학1·2 선행과 중학 수학 복습 순서",
+    description: `세종 예비고1 수학 준비, 공통수학1·2 단원 구성과 중학 필수 복습 단원, 겨울방학 학습 순서를 정리했습니다. 1:1 수학과외 상담 ${phone}`,
+    h1: "세종 예비고1<br>수학 준비",
+    kicker: "WINTER PREP · 중3 → 고1",
+    lead: "고1 수학은 내신 등급과 이후 수능 준비의 출발점입니다. 중학 수학의 어떤 단원을 다시 보고, 공통수학을 어떤 순서로 시작할지 정리했습니다.",
+    sections: [
+      ["고1 수학, 무엇이 달라지나요?", `<p>2022 개정 교육과정에서 고1은 <strong>공통수학1</strong>과 <strong>공통수학2</strong>를 배웁니다. 내용이 많아지고 문제의 조건이 길어져 중학교 때처럼 유형 암기만으로는 점수를 유지하기 어렵습니다.</p><div class="table-wrap"><table><thead><tr><th>과목</th><th>주요 단원</th></tr></thead><tbody><tr><th>공통수학1</th><td>다항식, 방정식과 부등식, 경우의 수, 행렬</td></tr><tr><th>공통수학2</th><td>도형의 방정식, 집합과 명제, 함수와 그래프</td></tr></tbody></table></div>`],
+      ["먼저 복습해야 할 중학 수학 단원", `<ul><li><strong>다항식의 곱셈과 인수분해</strong>: 공통수학1 다항식 단원의 바탕</li><li><strong>이차방정식</strong>: 근의 공식, 판별식, 근과 계수의 관계로 이어짐</li><li><strong>일차함수와 이차함수</strong>: 함수와 그래프, 도형의 방정식의 바탕</li><li><strong>부등식과 연립방정식</strong>: 방정식과 부등식 단원의 기본</li></ul><p>이 단원에서 막힌다면 공통수학 선행 속도를 늦추고 중학 복습을 병행하는 것이 결과적으로 더 빠릅니다.</p>`],
+      ["겨울방학 학습 순서 예시", `<div class="table-wrap"><table><thead><tr><th>기간</th><th>학습 내용</th></tr></thead><tbody><tr><th>1~2주</th><td>중학 인수분해·이차방정식·이차함수 집중 복습</td></tr><tr><th>3~6주</th><td>공통수학1 다항식, 방정식과 부등식</td></tr><tr><th>7~9주</th><td>공통수학1 경우의 수, 행렬과 1학기 범위 정리</td></tr><tr><th>10~12주</th><td>공통수학2 도형의 방정식 시작, 고1 1학기 중간고사 범위 문제 연습</td></tr></tbody></table></div>`],
+      ["선행보다 중요한 것", `<p>고1 첫 시험은 학교마다 범위와 난도가 다릅니다. 진학 예정 학교의 교과서와 부교재를 확인하고, 개념 설명 → 교과서 문제 → 학교 기출 순서로 연습해야 실제 점수로 이어집니다.</p>`]
+    ],
+    faqs: [
+      ["예비고1은 공통수학을 어디까지 선행해야 하나요?", "중학 과정이 탄탄하다면 공통수학1 전체와 공통수학2 앞부분까지 정리하는 학생이 많습니다. 중학 함수와 인수분해가 흔들리면 공통수학1 정리에 집중하는 것이 좋습니다."],
+      ["중3 겨울방학에 중학 복습도 해야 하나요?", "인수분해, 이차방정식, 이차함수는 고1 수학 전반에 쓰이므로 짧게라도 꼭 다시 점검하는 것을 권합니다."],
+      ["고1 내신 대비는 언제부터 하나요?", "입학 후 첫 중간고사 4주 전부터 학교 교과서와 부교재 중심으로 준비합니다. 방학 동안 개념을 미리 정리해 두면 시험 대비 기간에 문제 연습 비중을 높일 수 있습니다."]
+    ],
+    related: ["/middle/", "/high/", "/guide/school-exam/"]
+  },
+  {
+    slug: "school-exam",
+    label: "중·고등 수학 내신",
+    title: "세종 중학교·고등학교 수학 내신 대비법 | 시험 4주 전 계획",
+    description: `세종 중학교·고등학교 수학 내신 시험 대비 방법. 학교별 범위 확인부터 4주 학습 계획, 서술형 감점 줄이기, 시험 후 분석까지 정리했습니다. 상담 ${phone}`,
+    h1: "세종 중·고등<br>수학 내신 대비",
+    kicker: "SCHOOL EXAM GUIDE",
+    lead: "같은 학년이어도 학교마다 교과서, 부교재, 서술형 비율이 다릅니다. 세종 중학교·고등학교 수학 내신을 준비하는 순서를 4주 계획으로 정리했습니다.",
+    sections: [
+      ["학교마다 수학 시험이 다른 이유", `<ul><li><strong>교과서 출판사</strong>: 같은 단원이라도 예제와 문제 구성이 다릅니다.</li><li><strong>부교재와 프린트</strong>: 학교에 따라 시험 문제의 상당 부분이 부교재에서 변형되어 나옵니다.</li><li><strong>서술형 비율</strong>: 풀이 과정 채점 기준을 알아야 감점을 줄일 수 있습니다.</li><li><strong>수행평가</strong>: 지필 시험과 별도로 성적에 반영되므로 일정을 함께 관리해야 합니다.</li></ul>`],
+      ["시험 4주 전 학습 계획", `<div class="table-wrap"><table><thead><tr><th>시기</th><th>할 일</th></tr></thead><tbody><tr><th>4주 전</th><td>시험 범위·교과서·부교재 확인, 단원별 개념 정리</td></tr><tr><th>3주 전</th><td>교과서와 부교재 문제 전체 풀이, 틀린 문제 표시</td></tr><tr><th>2주 전</th><td>학교 기출 경향에 맞춘 유형 연습, 서술형 풀이 쓰기</td></tr><tr><th>1주 전</th><td>실전 시간에 맞춘 모의 시험, 오답만 다시 풀기</td></tr></tbody></table></div>`],
+      ["서술형 감점을 줄이는 방법", `<ul><li>구하려는 값을 문자로 정의하고 시작합니다.</li><li>식을 세운 이유를 한 줄로 적습니다.</li><li>계산 과정은 중간 단계를 생략하지 않습니다.</li><li>마지막에 단위와 조건(정수, 양수 등)을 확인합니다.</li></ul>`],
+      ["시험이 끝난 뒤가 더 중요합니다", `<p>틀린 문제를 <strong>개념 부족, 문제 해석 실수, 계산 실수, 시간 부족</strong>으로 나누어 기록하면 다음 시험에서 무엇을 바꿔야 하는지 분명해집니다. 이 기록을 다음 학기 학습 계획에 반영합니다.</p>`]
+    ],
+    faqs: [
+      ["세종 중학교 수학 내신은 언제부터 준비하나요?", "보통 시험 4주 전부터 시작합니다. 평소에 개념과 오답을 정리해 두었다면 시험 기간에는 학교 기출과 서술형 연습에 집중할 수 있습니다."],
+      ["고등학교 수학 내신과 모의고사는 어떻게 함께 준비하나요?", "시험 4주 전부터는 내신 비중을 높이고, 시험이 끝난 뒤에는 모의고사와 수능형 문제 비중을 높이는 방식으로 번갈아 관리합니다."],
+      ["학교 기출문제는 어떻게 활용하나요?", "문제를 외우기보다 자주 나오는 단원, 서술형 형태, 난도 분포를 파악하는 데 사용합니다."]
+    ],
+    related: ["/middle/", "/high/", "/guide/pre-high1/"]
+  },
+  {
+    slug: "gifted",
+    label: "영재교육원 수학",
+    title: "세종 영재교육원 수학 준비 | 초등·중등 영재 선발 대비 방법",
+    description: `세종 영재교육원·영재학급 수학 분야 준비 방법. 선발 과정에서 보는 능력, 사고력 문제 연습법, 학년별 준비 순서를 정리했습니다. 상담 ${phone}`,
+    h1: "세종 영재교육원<br>수학 준비",
+    kicker: "GIFTED PROGRAM GUIDE",
+    lead: "영재교육원 수학 분야는 문제를 빨리 푸는 능력보다 새로운 문제를 끝까지 생각하고 설명하는 힘을 봅니다. 세종 영재교육원과 영재학급을 준비하는 방법을 정리했습니다.",
+    sections: [
+      ["선발 과정 이해하기", `<p>영재교육원과 영재학급은 대체로 <strong>교사 관찰·추천</strong>을 거쳐 <strong>창의적 문제해결력 평가</strong>와 <strong>면접</strong> 등으로 선발합니다. 모집 시기, 대상 학년, 전형 방법은 기관과 연도마다 다르므로 세종특별자치시교육청과 각 영재교육기관의 모집 공고를 반드시 확인해야 합니다.</p>`],
+      ["수학 분야에서 보는 능력", `<ul><li><strong>문제 이해력</strong>: 처음 보는 조건을 정리하고 무엇을 구할지 파악하는 힘</li><li><strong>논리적 사고</strong>: 규칙을 찾고 그 규칙이 왜 성립하는지 설명하는 힘</li><li><strong>다양한 풀이</strong>: 한 가지 방법에 머물지 않고 다른 접근을 시도하는 태도</li><li><strong>표현력</strong>: 생각한 과정을 글과 그림으로 전달하는 능력</li></ul>`],
+      ["학년별 준비 순서", `<div class="table-wrap"><table><thead><tr><th>시기</th><th>준비 내용</th></tr></thead><tbody><tr><th>초3~초4</th><td>교과 개념을 탄탄히 하고 퍼즐·규칙 찾기 등 사고력 문제에 익숙해지기</td></tr><tr><th>초5~초6</th><td>경우의 수, 수의 성질, 도형 문제를 깊게 다루고 풀이 과정 서술 연습</td></tr><tr><th>중등</th><td>교과 심화와 함께 증명형 문제, 탐구형 과제 경험 쌓기</td></tr></tbody></table></div>`],
+      ["집과 수업에서 할 수 있는 연습", `<p>한 문제를 오래 붙잡고 생각해 보는 경험이 가장 중요합니다. 정답을 바로 알려 주기보다 <strong>어디까지 알았는지, 다음에 무엇을 시도해 볼지</strong>를 말로 설명하게 하고, 풀이를 글로 정리하는 습관을 만듭니다. 1:1 수업에서는 학생의 사고 과정을 따라가며 막히는 지점에서 질문으로 방향을 잡아 줄 수 있습니다.</p>`]
+    ],
+    faqs: [
+      ["영재교육원 수학은 선행을 많이 해야 하나요?", "선행 진도보다 현재 학년 개념을 깊게 이해하고 새로운 문제를 끝까지 생각하는 힘이 더 중요합니다. 다만 교과 개념이 탄탄하지 않으면 사고력 문제에서도 한계가 생깁니다."],
+      ["세종 영재교육원 모집 일정은 어디서 확인하나요?", "세종특별자치시교육청과 각 영재교육기관의 모집 공고를 확인해야 합니다. 일정과 전형은 해마다 달라질 수 있습니다."],
+      ["영재교육원 준비와 학교 수학 공부를 함께 할 수 있나요?", "가능합니다. 교과 개념을 다지는 수업에 사고력·서술형 문제를 조금씩 더하는 방식이 무리가 적습니다."]
+    ],
+    related: ["/elementary/", "/middle/", "/guide/pre-middle1/"]
+  }
+];
+
+const guidePath = guide => `/guide/${guide.slug}/`;
+const pathTitle = href => {
+  const level = levels.find(item => `/${item.slug}/` === href);
+  if (level) return `세종 ${level.label} 수학과외`;
+  const guide = guides.find(item => guidePath(item) === href);
+  return guide ? `세종 ${guide.label} 가이드` : "세종 수학과외";
+};
+const guideCards = list => list.map((guide, index) => `<a class="level-card" href="${guidePath(guide)}"><span>GUIDE ${String(index + 1).padStart(2, "0")}</span><h3>세종 ${guide.label}</h3><p>${guide.lead}</p><b>가이드 읽기 <i aria-hidden="true">→</i></b></a>`).join("");
+const levelGuides = { elementary: ["pre-middle1", "gifted"], middle: ["school-exam", "pre-high1"], high: ["school-exam", "pre-high1"] };
+
+function guidePage(guide) {
+  const canonical = pageUrl("guide", guide.slug);
+  const toc = guide.sections.map(([heading], index) => `<a href="#s${index + 1}">${heading}</a>`).join("");
+  const sections = guide.sections.map(([heading, html], index) => `<section id="s${index + 1}"><h2>${heading}</h2>${html}</section>`).join("");
+  const related = guide.related.map(href => `<a href="${href}">${pathTitle(href)}<span>→</span></a>`).join("") + `<a href="/guide/">세종 수학 학습 가이드 전체<span>→</span></a>`;
+  const body = `<main id="main" class="local-page">
+    <section class="local-hero"><div class="wrap"><nav class="breadcrumbs" aria-label="현재 위치"><a href="/">세종</a><span>/</span><a href="/guide/">학습 가이드</a><span>/</span><strong>${guide.label}</strong></nav><p class="eyebrow">${guide.kicker}</p><h1>${guide.h1}</h1><p>${guide.lead}</p></div></section>
+    <section class="article-section"><div class="wrap article-layout"><aside class="article-toc" aria-label="목차"><p class="kicker">CONTENTS</p>${toc}</aside><article class="article-body">${sections}<p class="article-note">이 글은 세종 수학과외의 수업 경험을 바탕으로 정리한 일반적인 안내입니다. 학교 일정과 전형은 해당 학교와 교육청 공지를 확인해 주세요.</p></article></div></section>
+    ${faqSection(guide.faqs, `세종 ${guide.label}<br>자주 묻는 질문`)}
+    <section class="local-details"><div class="wrap detail-grid"><article><p class="kicker">RELATED</p><h2>함께 보면 좋은<br>세종 수학 정보</h2><div class="nearby-links">${related}</div></article><article><p class="kicker">LOCAL CLASS</p><h3>우리 동네 수학과외 찾기</h3><div class="nearby-links">${regions.slice(10, 18).map(item => `<a href="${regionPath(item)}">${item.name} 수학과외<span>→</span></a>`).join("")}</div></article></div></section>
+    ${ctaSection(`세종 ${guide.label} 상담`)}
+  </main>`;
+  const article = { "@context": "https://schema.org", "@type": "Article", headline: guide.title.split(" | ")[0], description: guide.description, inLanguage: "ko", mainEntityOfPage: canonical, datePublished: "2026-10-24", dateModified: "2026-10-24", author: { "@type": "Organization", name: "세종 수학과외", url: siteUrl }, publisher: { "@type": "Organization", name: "세종 수학과외", logo: { "@type": "ImageObject", url: `${siteUrl}/icon-512.png` } } };
+  const schema = [article, faqSchema(guide.faqs), breadcrumbSchema([["세종 수학과외", `${siteUrl}/`], ["세종 수학 학습 가이드", pageUrl("guide")], [guide.title.split(" | ")[0], canonical]])];
+  return { title: guide.title, description: guide.description, url: canonical, html: layout({ title: guide.title, description: guide.description, canonical, body, schema }) };
+}
+
+function guideIndexPage() {
+  const title = "세종 수학 학습 가이드 | 학원·과외 선택, 예비중1·예비고1, 내신, 영재교육원";
+  const description = `세종 수학학원과 과외 선택 기준, 예비중1·예비고1 수학 로드맵, 중·고등 수학 내신 대비, 영재교육원 수학 준비까지 정리한 학습 가이드. 상담 ${phone}`;
+  const canonical = pageUrl("guide");
+  const body = `<main id="main" class="local-page">
+    <section class="local-hero"><div class="wrap"><nav class="breadcrumbs" aria-label="현재 위치"><a href="/">세종</a><span>/</span><strong>학습 가이드</strong></nav><p class="eyebrow">SEJONG MATH GUIDE</p><h1>세종 수학<br>학습 가이드</h1><p>학원과 과외 중 무엇이 맞을지, 방학에는 무엇을 준비할지, 내신과 영재교육원은 어떻게 대비할지 학부모님이 자주 묻는 내용을 정리했습니다.</p></div></section>
+    <section class="level-section"><div class="wrap"><div class="level-grid">${guideCards(guides)}</div></div></section>
+    ${ctaSection("세종 수학 학습 상담")}
+  </main>`;
+  const schema = [breadcrumbSchema([["세종 수학과외", `${siteUrl}/`], ["세종 수학 학습 가이드", canonical]])];
+  return { title, description, url: canonical, html: layout({ title, description, canonical, body, schema }) };
+}
+
 const pages = [];
 const addPage = async (relativeDir, html, meta) => {
   const directory = path.join(dist, ...relativeDir);
@@ -364,6 +515,12 @@ pages.push({ title: "세종 수학과외", description: "세종특별자치시 �
 for (const level of levels) {
   const page = levelPage(level, null);
   await addPage([level.slug], page.html, { ...page, priority: "0.9" });
+}
+const guideIndex = guideIndexPage();
+await addPage(["guide"], guideIndex.html, { ...guideIndex, priority: "0.8" });
+for (const guide of guides) {
+  const page = guidePage(guide);
+  await addPage(["guide", guide.slug], page.html, { ...page, priority: "0.8" });
 }
 for (const [index, region] of regions.entries()) {
   await addPage(["areas", region.slug], regionPage(region, index), { title: `세종 ${region.name} 수학과외`, description: `세종 ${region.name} 초중고 1:1 수학과외`, url: pageUrl("areas", region.slug), priority: "0.8" });
