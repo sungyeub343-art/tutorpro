@@ -164,6 +164,20 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
 .article-body thead th { color: white; background: var(--blue); font-weight: 600; }
 .article-body tbody th { width: 22%; background: var(--blue-soft); white-space: nowrap; }
 .article-note { padding: 1rem 1.2rem; border-left: 3px solid var(--amber); background: var(--paper); font-size: .9rem !important; }
+.school-section { padding: 7rem 0; background: white; border-top: 1px solid var(--line); }
+.school-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+.school-column h3 { margin: 0 0 1rem; font-size: 1.1rem; }
+.school-column > a { display: inline-block; margin-top: 1rem; color: var(--blue); font-size: .9rem; font-weight: 600; }
+.school-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.school-list li { display: flex; flex-direction: column; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.school-list strong { font-size: 1rem; }
+.school-list span { color: var(--muted); font-size: .85rem; }
+.school-list-wide { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 2rem; }
+.school-directory { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2rem; border-top: 1px solid var(--line); }
+.school-directory > div { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.school-directory a, .school-directory strong { color: var(--blue); font-weight: 700; }
+.school-directory p { margin: .3rem 0 0; color: var(--muted); font-size: .9rem; }
+.school-source { margin: 1.5rem 0 0; color: var(--muted); font-size: .78rem; }
 .not-found { min-height: 75vh; display: grid; place-items: center; padding: 8rem 1.5rem; text-align: center; background: var(--blue-soft); }
 .not-found h1 { font-size: clamp(3rem, 8vw, 6rem); }
 .not-found p { color: var(--muted); }
@@ -187,6 +201,7 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
   .study-scene > img { min-height: 420px; }
   .region-grid { grid-template-columns: repeat(3, 1fr); }
   .level-grid { grid-template-columns: 1fr; }
+  .school-grid, .school-list-wide, .school-directory { grid-template-columns: 1fr; }
   .article-layout { grid-template-columns: 1fr; gap: 2.5rem; }
   .article-toc { position: static; }
   .level-card { min-height: 0; }
@@ -214,6 +229,7 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
   .method, .areas, .local-intro, .local-details, .grade-section, .level-section, .topic-section, .faq-section { padding: 5rem 0; }
   .topic-grid article { min-height: 0; }
   .article-section { padding: 4rem 0; }
+  .school-section { padding: 4.5rem 0; }
   .topic-grid h3 { margin-top: 1.6rem; }
   .faq-list summary { font-size: .98rem; }
   .method-grid, .grade-grid { grid-template-columns: 1fr; }

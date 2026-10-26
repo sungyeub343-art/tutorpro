@@ -37,6 +37,24 @@ const regions = [
   { slug: "jiphyeon", name: "집현동", group: "4생활권", nearby: "새나루마을·집현중앙로 인근", focus: "개념을 스스로 설명하는 힘을 기르는 수업" }
 ];
 
+const schoolData = JSON.parse(await readFile(path.join(root, "src", "data", "sejong-schools.json"), "utf8"));
+const schoolTypes = { elementary: "초등학교", middle: "중학교", high: "고등학교" };
+const schoolNotes = { elementary: "교과 진도·단원평가 맞춤 수학수업", middle: "시험 범위·서술형 맞춤 수학내신", high: "학교 기출·부교재 맞춤 내신·수능대비" };
+const schoolSource = `학교 정보: ${schoolData.source}, ${schoolData.baseDate} 기준`;
+const schoolsIn = (region, type) => schoolData.schools.filter(school => school.area === region.name && (!type || school.level === type));
+const schoolsOf = type => schoolData.schools.filter(school => school.level === type);
+function nearestSchools(region, type, count = 3) {
+  const own = schoolsIn(region);
+  const lat = own.reduce((sum, school) => sum + school.lat, 0) / own.length;
+  const lng = own.reduce((sum, school) => sum + school.lng, 0) / own.length;
+  return schoolsOf(type).filter(school => school.area !== region.name).map(school => ({ ...school, distance: Math.hypot(school.lat - lat, (school.lng - lng) * Math.cos(lat * Math.PI / 180)) })).sort((a, b) => a.distance - b.distance).slice(0, count);
+}
+function localSchools(region, type) {
+  const own = schoolsIn(region, type);
+  return own.length ? { schools: own, nearby: false } : { schools: nearestSchools(region, type), nearby: true };
+}
+const schoolItem = (school, note, nearby) => `<li><strong>${school.name}</strong><span>${nearby ? `${school.area} · ` : ""}${note}</span></li>`;
+
 const grades = [
   ["예비중1", "초등 연산과 문장제의 빈틈을 확인하고 문자와 식, 기본 도형으로 이어지는 중학 수학의 첫 틀을 만듭니다."],
   ["예비중2", "일차방정식과 좌표, 기본 도형을 복습한 뒤 식의 계산과 연립방정식을 안정적으로 연결합니다."],
@@ -248,7 +266,7 @@ function homePage() {
     <section class="level-section" id="levels"><div class="wrap"><div class="section-heading"><div><p class="kicker">02 · BY SCHOOL LEVEL</p><h2>초등·중등·고등<br>단계별 수학수업</h2></div><p>초등 수학공부 습관, 중등 수학내신, 고등 수능대비까지 학교급마다 필요한 수업이 다릅니다. 학생의 단계에 맞는 세종 수학과외를 확인하세요.</p></div><div class="level-grid">${levelCards("세종")}</div></div></section>
     <section class="grade-section" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">03 · GRADE TRANSITION</p><h2>학년이 바뀌면<br>준비도 달라야 합니다</h2></div><p>빠른 선행보다 중요한 것은 다음 과정에 필요한 이전 개념을 정확히 연결하는 일입니다.</p></div><div class="grade-grid">${gradeCards}</div></div></section>
     <section class="study-scene"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85" alt="노트에 수학 공부 내용을 정리하는 학생" loading="lazy"><div><p class="kicker">STUDY WITH DIRECTION</p><h2>혼자 공부할 때도<br>흔들리지 않도록</h2><p>과외 시간에만 풀 수 있는 문제는 오래 남지 않습니다. 문제를 읽고, 조건을 표시하고, 풀이를 검토하는 루틴을 반복해 스스로 공부하는 기준을 만듭니다.</p><ul><li>학교별 시험 범위와 일정 반영</li><li>매 수업 오답 원인 기록</li><li>개인별 과제량과 복습 주기 조정</li></ul></div></section>
-    <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">04 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 읍·면과 생활권별 동 페이지에서 가까운 지역의 초등·중등·고등 수학과외 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
+    <section class="areas" id="areas"><div class="wrap"><div class="section-heading"><div><p class="kicker">04 · LOCAL CLASS</p><h2>세종 우리 동네<br>수학과외 찾기</h2></div><p>세종은 자치구가 없는 단층제 도시입니다. 세종 초등학교 ${schoolsOf("초등학교").length}곳, 중학교 ${schoolsOf("중학교").length}곳, 고등학교 ${schoolsOf("고등학교").length}곳 학생을 위한 지역별 수학과외 안내를 확인하세요.</p></div><div class="region-grid">${regionLinks}</div></div></section>
     <section class="level-section guide-section" id="guide"><div class="wrap"><div class="section-heading"><div><p class="kicker">05 · STUDY GUIDE</p><h2>세종 학부모님이<br>자주 찾는 수학 정보</h2></div><p>수학학원과 과외 선택 기준, 예비중1·예비고1 방학 로드맵, 중·고등 수학 내신과 영재교육원 준비까지 정리했습니다.</p></div><div class="level-grid">${guideCards(guides)}</div></div></section>
     ${faqSection(homeFaqs, "세종 수학과외<br>자주 묻는 질문")}
     <section class="consult" id="consult"><div class="wrap consult-inner"><div><p class="kicker">06 · CONSULTATION</p><h2>현재 고민부터<br>차근히 확인합니다</h2></div><div><p>학생 학년, 거주 지역, 최근 성적과 목표를 기준으로 필요한 수업 방향을 안내합니다. 전화로 편하게 상담을 신청해 주세요.</p><a class="button button-dark" href="${phoneHref}" aria-label="${phone}로 전화 상담">${phone} <span>→</span></a></div></div></section>
@@ -278,6 +296,15 @@ function homePage() {
   return layout({ title, description, canonical: `${siteUrl}/`, body, schema: [faqSchema(homeFaqs)] });
 }
 
+function regionSchoolSection(region) {
+  const columns = levels.map(level => {
+    const { schools, nearby } = localSchools(region, schoolTypes[level.slug]);
+    return `<div class="school-column"><h3>${region.name} ${nearby ? "인근 " : ""}${schoolTypes[level.slug]}</h3><ul class="school-list">${schools.map(school => schoolItem(school, schoolNotes[level.slug], nearby)).join("")}</ul><a href="${regionPath(region, level)}">${region.name} ${level.label} 수학과외 →</a></div>`;
+  }).join("");
+  const own = schoolsIn(region).map(school => school.name);
+  return `<section class="school-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">LOCAL SCHOOLS</p><h2>${region.name} 학교별<br>수학 내신 대비</h2></div><p>${own.join(", ")} 학생의 교과서, 시험 범위, 학교 진도에 맞춰 수업합니다.</p></div><div class="school-grid">${columns}</div><p class="school-source">${schoolSource}</p></div></section>`;
+}
+
 function regionPage(region, index) {
   const title = `세종 ${region.name} 수학과외 | 초등·중등·고등 1:1 수학수업`;
   const description = `세종 ${region.name} 수학과외. 초등 기초수학부터 중등 수학내신, 고등 수능수학까지 학년별 1:1 맞춤 수업. ${region.nearby} 인근 전화 상담 ${phone}`;
@@ -291,6 +318,7 @@ function regionPage(region, index) {
   const body = `<main id="main" class="local-page">
     <section class="local-hero"><div class="wrap"><nav class="breadcrumbs" aria-label="현재 위치"><a href="/">세종</a><span>/</span><strong>${region.name}</strong></nav><p class="eyebrow">${region.group} · LOCAL MATH COACHING</p><h1>${region.name}<br>수학과외</h1><p>${region.nearby}에서 만나는 1:1 맞춤 수업. ${region.focus} 방식으로 학생의 공부 흐름을 바로잡습니다.</p></div></section>
     <section class="local-intro"><div class="wrap section-heading"><div><p class="kicker">LOCAL STUDY PLAN</p><h2>가까운 곳에서<br>꾸준히 배우는 수학</h2></div><div><p>세종 ${region.name} 수학과외는 최근 시험지와 현재 사용하는 교재를 먼저 살펴봅니다. 정답 개수만 확인하지 않고 개념 이해, 풀이 순서, 계산 습관 중 어디에서 막혔는지 구분해 다음 학습량을 정합니다.</p><p>${region.focus}. 초등 개념과 연산, 중등 내신의 서술형 풀이, 고등 수학의 개념 연결과 문제 해석까지 현재 필요한 단계에 집중합니다.</p></div></div></section>
+    ${regionSchoolSection(region)}
     <section class="level-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">BY SCHOOL LEVEL</p><h2>${region.name} 초등·중등·고등<br>수학수업 안내</h2></div><p>${pick(levels, index).paragraphs[0]}</p></div><div class="level-grid">${levelCards(region.name, region)}</div></div></section>
     <section class="grade-section local-grades" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">GRADE TRANSITION</p><h2>${region.name} 학년별<br>수학 학습 안내</h2></div><p>학년 전환기의 복습과 선행을 학생별 이해도에 맞춰 조정합니다.</p></div><div class="grade-grid">${gradeCards.replaceAll("<h3>", `<h3>${region.name} `)}</div></div></section>
     ${faqSection(faqs, `${region.name} 수학과외<br>자주 묻는 질문`)}
@@ -306,7 +334,8 @@ function levelPage(level, region, index = 0) {
   const fullPlace = region ? `세종 ${region.name}` : "세종";
   const levelIndex = levels.indexOf(level);
   const title = `${fullPlace} ${level.label} 수학과외 | ${level.titleTail}`;
-  const description = `${fullPlace} ${level.label} 수학과외. ${level.descKeywords}까지 ${level.range} 학년별 1:1 맞춤 관리. ${region ? `${region.nearby} 인근 ` : "세종 전 지역 "}전화 상담 ${phone}`;
+  const descSchools = region ? localSchools(region, schoolTypes[level.slug]).schools.slice(0, 2).map(school => school.name).join("·") : "";
+  const description = `${fullPlace} ${level.label} 수학과외. ${level.descKeywords}까지 ${level.range} 학년별 1:1 맞춤 관리. ${region ? descSchools : `세종 ${schoolTypes[level.slug]} ${schoolsOf(schoolTypes[level.slug]).length}곳`} 학생 맞춤, 전화 상담 ${phone}`;
   const lead = region ? pick([
     `세종 ${region.name} ${level.label} 수학과외는 ${region.nearby} 인근 ${level.learner}의 학교 진도와 현재 실력을 먼저 확인하고 수업을 시작합니다.`,
     `${region.group} ${region.name}에서 ${level.learner} 수학을 1:1로 관리합니다. 최근 시험지와 사용 중인 교재를 살펴 막힌 단원부터 정리합니다.`,
@@ -314,7 +343,13 @@ function levelPage(level, region, index = 0) {
     `${region.nearby}에 사는 ${level.learner}를 위한 ${region.name} ${level.label} 수학수업입니다. ${region.focus}에 초점을 맞춥니다.`
   ], index + levelIndex) : `세종특별자치시 26개 읍·면·동의 ${level.learner}를 위한 1:1 ${level.label} 수학과외입니다. 학교 진도와 현재 실력을 먼저 확인하고 수업을 시작합니다.`;
   const paragraphs = [pick(level.paragraphs, index), pick(level.paragraphs, index + 1)];
+  const schoolType = schoolTypes[level.slug];
+  const local = region ? localSchools(region, schoolType) : null;
   const faqs = level.faqs(place);
+  if (local && !local.nearby) faqs.splice(1, 0, [`${local.schools[0].name} 학생도 ${level.label} 수학과외를 받을 수 있나요?`, `네. ${local.schools.map(school => school.name).join(", ")} 등 ${region.name} ${schoolType} 학생의 교과서와 시험 범위, 학교 진도를 확인해 맞춤 수업을 진행합니다.`]);
+  const schoolSection = region
+    ? `<section class="school-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">LOCAL SCHOOLS</p><h2>${region.name}${local.nearby ? " 인근" : ""} ${schoolType}<br>${level.label} 수학과외</h2></div><p>${local.nearby ? `${region.name}과 가까운 ${local.schools.map(school => `${school.area} ${school.name}`).join(", ")} 학생도 상담할 수 있습니다.` : `${region.name}의 ${local.schools.map(school => school.name).join(", ")} 학생을 위한 ${level.label} 수학과외입니다.`} 학교별 교과서와 시험 범위를 확인해 수업을 준비합니다.</p></div><ul class="school-list school-list-wide">${local.schools.map(school => schoolItem(school, schoolNotes[level.slug], local.nearby)).join("")}</ul><p class="school-source">${schoolSource}</p></div></section>`
+    : `<section class="school-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">SEJONG SCHOOLS</p><h2>세종 ${schoolType}<br>${level.label} 수학과외</h2></div><p>세종특별자치시 ${schoolType} ${schoolsOf(schoolType).length}곳 학생의 학교 진도와 시험 범위에 맞춰 수업합니다. 지역을 선택하면 해당 지역 ${level.label} 수학과외 안내로 이동합니다.</p></div><div class="school-directory">${regions.filter(item => schoolsIn(item, schoolType).length).map(item => `<div><a href="${regionPath(item, level)}">${item.name} ${level.label} 수학과외 →</a><p>${schoolsIn(item, schoolType).map(school => school.name).join(", ")}</p></div>`).join("")}${schoolsOf(schoolType).filter(school => !regions.some(item => item.name === school.area)).map(school => `<div><strong>${school.area}</strong><p>${school.name}</p></div>`).join("")}</div><p class="school-source">${schoolSource}</p></div></section>`;
   const topicCards = level.topics.map(([topic, text], topicIndex) => `<article><b>${String(topicIndex + 1).padStart(2, "0")}</b><h3>${place} ${level.label} ${topic}</h3><p>${text}</p></article>`).join("");
   const levelGradeCards = level.grades.map(([name, text]) => `<article class="grade-card"><span>${level.en}</span><h3>${place} ${name} 수학과외</h3><p>${text}</p></article>`).join("");
   const otherLevels = levels.filter(item => item !== level).map(item => `<a href="${region ? regionPath(region, item) : `/${item.slug}/`}">${place} ${item.label} 수학과외<span>→</span></a>`).join("");
@@ -335,6 +370,7 @@ function levelPage(level, region, index = 0) {
   const body = `<main id="main" class="local-page">
     <section class="local-hero"><div class="wrap"><nav class="breadcrumbs" aria-label="현재 위치">${crumbs}</nav><p class="eyebrow">${region ? `${region.group} · ` : ""}${level.en} · ${level.range}</p><h1>${place}<br>${level.label} 수학과외</h1><p>${lead}</p></div></section>
     <section class="local-intro"><div class="wrap section-heading"><div><p class="kicker">STUDY PLAN</p><h2>${place} ${level.label} 수학,<br>지금 필요한 단계부터</h2></div><div><p>${paragraphs[0]}</p><p>${paragraphs[1]}</p></div></div></section>
+    ${schoolSection}
     <section class="topic-section"><div class="wrap"><div class="section-heading"><div><p class="kicker">LESSON PROGRAM</p><h2>${place} ${level.label}<br>수학 수업 구성</h2></div><p>${level.descKeywords}까지 학생에게 지금 필요한 수업을 골라 진행합니다.</p></div><div class="topic-grid">${topicCards}</div></div></section>
     <section class="grade-section local-grades" id="grades"><div class="wrap"><div class="section-heading light"><div><p class="kicker">GRADE BY GRADE</p><h2>${place} ${level.range}<br>학년별 수학과외</h2></div><p>학년마다 꼭 잡아야 할 단원이 다릅니다. 현재 학년 진도와 이전 학년 복습을 함께 설계합니다.</p></div><div class="grade-grid">${levelGradeCards}</div></div></section>
     ${regionSection}
