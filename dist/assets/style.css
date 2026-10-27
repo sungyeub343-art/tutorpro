@@ -178,6 +178,12 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
 .school-directory a, .school-directory strong { color: var(--blue); font-weight: 700; }
 .school-directory p { margin: .3rem 0 0; color: var(--muted); font-size: .9rem; }
 .school-source { margin: 1.5rem 0 0; color: var(--muted); font-size: .78rem; }
+.school-list a, .school-directory p a { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.school-list a:hover, .school-directory p a:hover { color: var(--coral); text-decoration-color: currentColor; }
+.school-focus { margin: 0 0 1.5rem; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.school-focus li { padding: .8rem 0 .8rem 1.6rem; border-bottom: 1px solid var(--line); background: linear-gradient(var(--coral), var(--coral)) left 1.35rem / .6rem 2px no-repeat; font-weight: 500; }
+.school-address { color: var(--muted); font-size: .9rem; }
+.school-plan { max-width: none; }
 .not-found { min-height: 75vh; display: grid; place-items: center; padding: 8rem 1.5rem; text-align: center; background: var(--blue-soft); }
 .not-found h1 { font-size: clamp(3rem, 8vw, 6rem); }
 .not-found p { color: var(--muted); }
