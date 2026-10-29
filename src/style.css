@@ -184,6 +184,10 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
 .school-focus li { padding: .8rem 0 .8rem 1.6rem; border-bottom: 1px solid var(--line); background: linear-gradient(var(--coral), var(--coral)) left 1.35rem / .6rem 2px no-repeat; font-weight: 500; }
 .school-address { color: var(--muted); font-size: .9rem; }
 .school-plan { max-width: none; }
+.grade-more { display: inline-block; margin-top: 1.2rem; color: var(--amber); font-size: .85rem; font-weight: 600; }
+.grade-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.grade-group h2 { margin: 0 0 1.5rem; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.grade-group + .grade-group { margin-top: 4.5rem; }
 .not-found { min-height: 75vh; display: grid; place-items: center; padding: 8rem 1.5rem; text-align: center; background: var(--blue-soft); }
 .not-found h1 { font-size: clamp(3rem, 8vw, 6rem); }
 .not-found p { color: var(--muted); }
