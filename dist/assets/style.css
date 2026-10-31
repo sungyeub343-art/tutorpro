@@ -188,6 +188,15 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
 .grade-more:hover { text-decoration: underline; text-underline-offset: 3px; }
 .grade-group h2 { margin: 0 0 1.5rem; font-size: clamp(1.6rem, 3vw, 2.2rem); }
 .grade-group + .grade-group { margin-top: 4.5rem; }
+.grade-card-compact { min-height: 0; }
+.grade-card-compact h3 { margin-top: 1.4rem; }
+.grade-links { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.25); border-left: 1px solid rgba(255,255,255,.25); }
+.grade-links a { display: flex; flex-direction: column; gap: .2rem; padding: 1.2rem; border-right: 1px solid rgba(255,255,255,.25); border-bottom: 1px solid rgba(255,255,255,.25); transition: background .2s, color .2s; }
+.grade-links small { color: var(--amber); font-size: .68rem; letter-spacing: .06em; }
+.grade-links span { color: rgba(255,255,255,.65); font-size: .82rem; }
+.grade-links a:hover, .grade-links a:focus-visible { color: var(--ink); background: var(--amber); outline: none; }
+.grade-links a:hover small, .grade-links a:hover span { color: var(--ink); }
+.nearby-links a span { color: var(--muted); font-size: .82rem; }
 .not-found { min-height: 75vh; display: grid; place-items: center; padding: 8rem 1.5rem; text-align: center; background: var(--blue-soft); }
 .not-found h1 { font-size: clamp(3rem, 8vw, 6rem); }
 .not-found p { color: var(--muted); }
@@ -211,6 +220,7 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
   .study-scene > img { min-height: 420px; }
   .region-grid { grid-template-columns: repeat(3, 1fr); }
   .level-grid { grid-template-columns: 1fr; }
+  .grade-links { grid-template-columns: repeat(2, 1fr); }
   .school-grid, .school-list-wide, .school-directory { grid-template-columns: 1fr; }
   .article-layout { grid-template-columns: 1fr; gap: 2.5rem; }
   .article-toc { position: static; }
@@ -250,6 +260,7 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
   .study-scene > img { min-height: 310px; }
   .study-scene > div { padding: 4.5rem 16px; }
   .region-grid { grid-template-columns: 1fr 1fr; }
+  .grade-links { grid-template-columns: 1fr; }
   .region-link { min-height: 105px; padding: 1rem; }
   .region-link strong { font-size: .9rem; }
   .consult-inner { gap: 2rem; }
